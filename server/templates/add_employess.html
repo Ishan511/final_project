@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee</title>
+</head>
+<body>
+    
+    <a href="{{url_for('logout')}}">LogOut</a>
+    <br/>
+    <a href="{{url_for('database_maintenance')}}">Database Maintenance</a>
+    <br/>
+    <a href="{{url_for('index_page')}}">Home</a> 
+    <h1> Add Employee</h1>
+    <form action="{{url_for('add_employee')}}" method="POST">
+        </br><label for="name">Name</label>&nbsp&nbsp;
+        <input name="name" type="text" class="textbox"/></br></br></br>
+        <label for="user_name">User Name</label>&nbsp&nbsp;
+        <input id="user_name" name="user_name" type="text" class="textbox"/></br></br></br>
+        <label for="password">Password</label>&nbsp&nbsp;
+        <input id="password" name="password" type="password" class="textbox"/></br></br></br>
+        <label for="user_level">User Level</label>&nbsp&nbsp;
+        <input id="user_level" name="user_level" type="number" class="textbox"/></br></br>
+        <input type="submit" class="btn" value="Submit">
+    </form>
+    {% if condition %}
+    <h3>Employee {{name}}  has been added successfully </h3>
+    {% endif %}
+    {% if condition1 %}
+    <h3>Fill all details</h3>
+    {% endif %}
+
+</body>
+</html>

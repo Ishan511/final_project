@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bughound</title>
+</head>
+<body>
+    <h1>Welcome to bug hound</h1>
+    <a href="{{url_for('logout')}}">LogOut</a>
+    <a href="{{url_for('add_bug')}}"><h2>Add Bug</h2></a>
+    <a href="{{url_for('search_bug')}}"><h2>Update Bug</h2></a>
+    {% if condition %}
+    <a href="{{url_for('database_maintenance')}}"><h2>Database Maintenance</h2></a>
+    {% endif %}
+    <h3>User:{{name}} UserLevel:{{userlevel}}</h3>
+</body>
+</html>

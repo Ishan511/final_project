@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Bug Search Page</h1>
+        <form method="POST" action="{{url_for('result_bug')}}">
+            <table style="width:25%", border="1">
+            <tr>
+            <td><label id="program">Program</label></td>
+                <td><select id ="program" name="program_options">
+                <option value=ALL selected>ALL</option>
+                {% for option in programs %}
+                <option value="{{option}}">{{option}}</option>
+                {% endfor %}
+                </select></td>
+            
+            </tr>
+            <tr> <td><label id="report_type">Report Type</label></td>
+                <td>
+                <select id ="report_type" name="report_options">
+                <option value=ALL selected>ALL</option>
+                {% for option in report_type %}
+                <option value="{{option}}">{{option}}</option>
+                {% endfor %}
+                </select>
+                </td></tr>
+    
+           
+            <tr>
+                <td><label id="severity">Severity</label></td>
+                <td><select id ="severity" name="severity">
+                    <option value=ALL>ALL</option>
+                    {% for option in severity %}
+                    <option value="{{option}}">{{option}}</option>
+                    {% endfor %}
+                    </select></td></tr>
+            
+            <tr><td><label id="areas">Functional Area</label></td>
+                <td><select id ="areas" name="areas">
+                    <option value=ALL>ALL</option>
+                    {% for option in area %}
+                    <option value="{{option[2]}}">{{option[2]}}</option>
+                    {% endfor %}
+                    </select></td></tr>
+            
+            <tr><td><label id="assigned_to">Assigned To</label></td>
+                <td><select id ="assigned_to" name="assigned_to">
+                    <option value=ALL>ALL</option>
+                    {% for option in assigned_to %}
+                    <option value="{{option}}">{{option}}</option>
+                    {% endfor %}
+                    </select></td></tr>
+            
+            <tr>
+                <td><label id="reported_by">Reported By</label></td>
+                <td>
+                    <select id ="reported_by" name="reported_by">
+                    <option value=ALL>ALL</option>
+                    {% for option in reported_by %}
+                    <option value="{{option}}">{{option}}</option>
+                    {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            
+            <tr><td><label id="status">Status</label></td>
+                <td><select id ="status" name="status">
+                <option value=ALL>ALL</option>
+                {% for option in status %}
+                <option value="{{option}}">{{option}}</option>
+                {% endfor %}
+                </select></td></tr>
+            
+            <tr>
+                <td><label id="priority">Priority</label></td>
+                <td><select id ="priority" name="priority">
+                    <option value=ALL>ALL</option>
+                    {% for option in priority %}
+                    <option value="{{option}}">{{option}}</option>
+                    {% endfor %}
+                    </select></td></tr>
+            <tr>
+                <td><label id="resolution">Resolution</label></td>
+            <td><select id ="resolution" name="resolution">
+                <option value=ALL>ALL</option>
+                {% for option in resolution %}
+                <option value="{{option}}">{{option}}</option>
+                {% endfor %}
+                </select></td>
+            </tr>
+            
+        </table>
+        <br/>
+        <input type="submit" class="btn" value="Submit">
+        &nbsp;
+        <input type="reset" value="Reset">
+        &nbsp;
+        <button><a href="{{url_for('index_page')}}" style="text-decoration:none;">Cancel</a></button>
+        </form>
+</body>
+</html>

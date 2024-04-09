@@ -1,0 +1,82 @@
+program_options = request.form['program_options']
+        report_options = request.form['report_options']
+        severity = request.form['severity']
+        problem_summary = request.form['problem_summary']
+        reproducible = request.form['reproducible']
+        problem = request.form['problem']
+        reported_by = request.form['reported_by']
+        entry_date = request.form['entry_date']
+        areas = request.form['areas']
+        assigned_to = request.form['assigned_to']
+        comments = request.form['comments']
+        status = request.form['status']
+        priority = request.form['priority']
+        resolution = request.form['resolution']
+        resolution_version = request.form['resolution_version']
+        resolved_by = request.form['resolved_by']
+        resolved_date = request.form["resolved_date"]
+        tested_by = request.form["tested_by"]
+        tested_date = request.form["tested_date"]
+
+table = """ CREATE TABLE BUGS (
+            bug_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            program_options TEXT,
+            report_options TEXT,
+            severity TEXT,
+            problem_summary TEXT,
+            reproducible TEXT,
+            problem TEXT,
+            reported_by TEXT,
+            entry_date TEXT,
+            areas TEXT,
+            assigned_to TEXT,
+            comments TEXT,
+            status TEXT,
+            priority TEXT,
+            resolution TEXT,
+            resolution_version TEXT,
+            resolved_by TEXT,
+            resolved_date TEXT,
+            tested_by TEXT,
+            tested_date TEXT,
+            treat_as TEXT
+        );"""
+
+
+
+OR
+            (report_options='ALL' OR report_options=?) AND
+            (severity='ALL' OR severity=?) AND
+            (areas='ALL' OR areas=?) AND
+            (assigned_to='ALL' OR assigned_to=?) AND
+            (reported_by='ALL' OR reported_by=?) AND
+            (status='ALL' OR status=?) AND
+            (priority='ALL' OR priority=?) AND
+            (resolution='ALL' OR resolution=?)
+
+
+cur = db.execute(query, (program, report_type, severity, areas, assigned_to, reported_by, status, priority, resolution))
+
+%PDF-1.4
+%Ã¢Ã£
+1 0 obj
+<<
+/Title (þÿ
+
+
+
+table = '''
+    CREATE TABLE attach(
+    attach_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    bug_id INTEGER NOT NULL,
+    filename TEXT,
+    file BLOB,
+    FOREIGN KEY (
+        bug_id
+    )
+    REFERENCES bugs (bug_id) 
+    );
+    '''
+    db.execute('drop table attach')
+    db.execute(table)
+    db.commit()

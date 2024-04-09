@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Employee</title>
+</head>
+<body>
+    <a href="{{url_for('logout')}}">LogOut</a>
+    <table style="width:25%", border="1">
+        <tr>
+            <th>Emp ID</th>
+            <th>Name</th>
+            <th>User Name</th>
+            <th>User Level</th>
+        </tr>
+            
+        {% for item in employees %}    
+        <tr>  
+            <td>{{item[0]}}</td>             
+            <td>{{item[1]}}</td>
+            <td>{{item[2]}}</td>
+            <td>{{item[4]}}</td>                            
+        </tr>
+        {% endfor %}    
+    </table>
+    <h1> Delete Employee</h1>
+    <h3> Search Employee to delete</h3>
+    <form method="POST",action="{{url_for('delete_employee')}}">
+    <select name="options">
+    <option value="{{options[0]}}" selected>{{options[0]}}</option>
+    {% for option in options[1:] %}
+    <option value="{{option}}">{{option}}</option>
+    {% endfor %}
+    </select>
+    <input name="search_data" class ="textbox"type = "text">
+    <input type="submit" value ="Submit">
+    </form>
+    {% if condition %}
+    <h3>Search resulted below Program</h3>
+    <table style="width:25%", border="1">
+        <tr>
+            <th>Emp ID</th>
+            <th>Name</th>
+            <th>User Name</th>
+            <th>User Level</th>
+        </tr>
+        <tr>
+        <td>{{data[0][0]}}</td>
+        <td>{{data[0][1]}}</td>
+        <td>{{data[0][2]}}</td>
+        <td>{{data[0][4]}}</td>
+        <td><button><a style="text-decoration:None;width:25px" href="{{url_for('delete_employee_id',emp_id=data[0][0])}}">Delete Employee</a></button></td>
+        </tr>
+        </table>
+    {% endif %}
+    {% if condition1%}
+    <h3>Entered Employee details does not exist in db</h3>
+    {% endif %}
+</body>
+</html>

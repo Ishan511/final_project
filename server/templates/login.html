@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bughound</title>
+</head>
+<body>
+    <h1>Welcome to bughound</h1>
+    <h2>Login In</h2>
+    {% if msg %}
+    <h2> Invalid Login Details, Please try again</h2>
+    {% endif %}
+    <form action="{{url_for('index')}}" method="POST">
+        <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox"/></br></br>
+        <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox"/></br></br></br>
+        <input type="submit" class="btn" value="Login In">
+    </form>
+    
+</body>
+</html>
