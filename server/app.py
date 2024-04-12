@@ -2,14 +2,24 @@ from flask import Flask,g,request,render_template,session,flash,redirect,url_for
 import xml.etree.ElementTree as ET
 import sqlite3
 from io import BytesIO
+# import socket
 
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "ThisisSecret!"
 
+
+# def get_free_port():
+#     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     s.bind(('localhost', 0))
+#     _, port = s.getsockname()
+#     s.close()
+#     return port
+
+
 ############### DB CONNECTIONS ########################
 def connect_db():
-    sql = sqlite3.connect('/Users/ishanunnarkar/Desktop/Projects/Bug_Hound-Project-main/server/db/bughound.db')
+    sql = sqlite3.connect('/Users/anurag/Documents/CSULB/Sem 4/CECS 544/Assignments/Semester Project/Bug_Hound-Project-main/final_project/server/db/bughound.db')
     sql.row_factory = sqlite3.Row
     return sql
 
@@ -192,6 +202,9 @@ def update_bug(bug_id):
                   "Disagree with suggestion","Duplicate"]
     attach_cur = db.execute(f'select * from attach where bug_id={bug_id}')
     attach = attach_cur.fetchall()
+    # return render_template("update_bug.html",bug_id=bug_id,data=data,programs=programs,report_options=report_options,\
+    #                        severity=severity,employees=employees,areas=areas,\
+    #                         status=status,priority=priority,resolution=resolution,attach=attach)
     return render_template("update_bug.html",bug_id=bug_id,data=data,programs=programs,report_options=report_options,\
                            severity=severity,employees=employees,areas=areas,\
                             status=status,priority=priority,resolution=resolution,attach=attach)
@@ -201,22 +214,22 @@ def result_bug():
     if "loggedin" not in session:
         return render_template("login.html")
     program = request.form['program_options']
-    report_type = request.form['report_options']
-    severity = request.form['severity']
+    # report_type = request.form['report_options']
+    # severity = request.form['severity']
     areas = request.form['areas']
     assigned_to = request.form['assigned_to']
     reported_by = request.form['reported_by']
     status = request.form['status']
     priority = request.form['priority']
-    resolution = request.form['resolution']
+    # resolution = request.form['resolution']
     db=get_db()
     query = "SELECT * FROM bugs WHERE "
     if program != 'ALL':
         query += f"program_options = '{program}' AND "
-    if report_type != 'ALL':
-        query += f"report_type = '{report_type}' AND "
-    if severity != 'ALL':
-        query += f"severity = '{severity}' AND "
+    # if report_type != 'ALL':
+    #     query += f"report_type = '{report_type}' AND "
+    # if severity != 'ALL':
+    #     query += f"severity = '{severity}' AND "
     if areas != 'ALL':
         query += f"functional_area = '{areas}' AND "
     if assigned_to != 'ALL':
@@ -227,8 +240,8 @@ def result_bug():
         query += f"status = '{status}' AND "
     if priority != 'ALL':
         query += f"priority = '{priority}' AND "
-    if resolution != 'ALL':
-        query += f"resolution = '{resolution}' AND "
+    # if resolution != 'ALL':
+    #     query += f"resolution = '{resolution}' AND "
     query = query[:-5]
     results = db.execute(query)
     data = results.fetchall()
@@ -255,9 +268,12 @@ def search_bug():
     priority = [1,2,3,4,5,6]
     resolution = ["Pending","Fixed","Irreproducible","Deferred","As designed","Withdrawn by reporter","Need more info",\
                   "Disagree with suggestion","Duplicate"]
-    return render_template("search_bug.html",programs=programs,report_type=report_type,severity=severity,\
+    # return render_template("search_bug.html",programs=programs,report_type=report_type,severity=severity,\
+    #                        area=area,assigned_to=assigned_to,reported_by=reported_by,status=status,\
+    #                         priority=priority,resolution=resolution)
+    return render_template("search_bug.html",programs=programs, \
                            area=area,assigned_to=assigned_to,reported_by=reported_by,status=status,\
-                            priority=priority,resolution=resolution)
+                            priority=priority)
 
 
 
@@ -579,5 +595,6 @@ def export_employee_ascii():
 
 
 if __name__ == "__main__":
+    # port = get_free_port()
     app.run(host="localhost", port=8000, debug=True)
 
