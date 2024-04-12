@@ -15,7 +15,8 @@
     <table style="width:25%", border="1">
     {% for program in programs %}
     <tr>
-    <td><a href="{{url_for('add_update_area_program',prog_id=program[0])}}">{{program[0] }}</a></td>
+    <td><a href="{{url_for('add_update_area_program',prog_id=programs[0], condition1=False)}}">{{program[0] }}</a></td>
+    <!-- <td>{{program[0]}}</td> -->
     <td>{{program[1]}}</td>
     <td>{{program[2]}}</td>
     <td>{{program[3]}}</td>
