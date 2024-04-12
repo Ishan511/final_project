@@ -8,11 +8,11 @@
 </head>
 <body>
     <a href="{{url_for('logout')}}">LogOut</a>
-    <table style="width:25%", border="1">
+    <!-- <table style="width:25%", border="1">
         <tr>
             <th>Emp ID</th>
             <th>Name</th>
-            <th>User Name</th>
+            <th>Email</th>
             <th>User Level</th>
         </tr>
             
@@ -24,7 +24,7 @@
             <td>{{item[4]}}</td>                            
         </tr>
         {% endfor %}    
-    </table>
+    </table> -->
     <h1> Delete Employee</h1>
     <h3> Search Employee to delete</h3>
     <form method="POST",action="{{url_for('delete_employee')}}">
@@ -43,8 +43,8 @@
         <tr>
             <th>Emp ID</th>
             <th>Name</th>
-            <th>User Name</th>
-            <th>User Level</th>
+            <th>Email</th>
+            <th>Role</th>
         </tr>
         <tr>
         <td>{{data[0][0]}}</td>
