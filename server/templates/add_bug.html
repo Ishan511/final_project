@@ -4,15 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <title>Add Bug</title>
 </head>
 <body>
-    <a href="{{url_for('logout')}}">LogOut</a>
-    <br/>
-    <a href="{{url_for('index_page')}}">Home</a> 
-    <h1>New Bug Report Type</h1>
+    <div class="header">
+        <div class="navigation">
+            <a href="{{url_for('logout')}}" class="btn header-btn">LogOut</a>
+            <a href="{{url_for('index_page')}}" class="btn header-btn">Home</a>
+        </div>
+        <h1 class="header-title">New Bug Report Type</h1>
+    </div>
+    <div class="content">
     <form method="POST" action="{{url_for('add_bug')}}">
-        <div class="first_row">
+        <div class="form-row">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title">
+
+            <label id="program">Program</label>
+        <select id ="program" name="program_options">
+            <option style="display:none;"></option>
+            {% for option in program_options %}
+            <option value="{{'-'.join(option[1:])}}">{{'-'.join(option[1:])}}</option>
+            {% endfor %}
+        </select>
+        </div>
+        <br/>
+        <!-- <div class="second_row">
             <label id="program">Program</label>
         <select id ="program" name="program_options">
             <option style="display:none;"></option>
@@ -28,34 +46,33 @@
             <option value="{{option}}">{{option}}</option>
             {% endfor %}
         </select>
-        <label id="severity">Severity</label>
+        <label id="severity">Priority Level</label>
         <select id ="severity" name="severity">
             <option style="display:none;"></option>
             {% for option in severity %}
             <option value="{{option}}">{{option}}</option>
             {% endfor %}
         </select>
-        </div>
-        <br/>
+        </div> -->
+        <!-- <br/>
         <div class="second_row" style="display: inline-block;">
             <label for="problem_summary">Problem Summary</label>
             <input type="text" id="problem_summary" name="problem_summary"></div>
-            &nbsp;
             <label id="reproducible">Reproducible?</label>
             <select id ="reproducible" name="reproducible">
             <option style="display:none;"></option>
             <option value="Yes" selected>Yes</option>
             <option value="No">No</option>
             </select>
-        </div>
+        </div> -->
         <br/>
-        <div class="third_row" style="margin-top:20px;">
-            <label style="vertical-align:top" for=problem>Problem</label>
+        <div class="form-row" style="margin-top:20px;">
+            <label style="vertical-align:top" for=problem>Description</label>
             &nbsp;
             <textarea name="problem" id="problem" cols="90" rows="3"></textarea>
         </div>
         <br/>
-        <div class="fourth_row">
+        <div class="form-row">
             <label id="reported_by">Reported By</label>
             <select id ="reported_by" name="reported_by">
             <option style="display:none;"></option>
@@ -68,7 +85,7 @@
             <input type="date" id="entry_date" name="entry_date"><br>
         </div>
         <hr/>
-        <div class="fifth_row">
+        <div class="form-row">
             <label id="areas">Functional Area</label>
             <select id ="areas" name="areas">
             <option style="display:none;"></option>
@@ -85,13 +102,13 @@
             {% endfor %}
             </select>
         </div>
-        <div class="sixth_row" style="margin-top:20px;">
+        <div class="form-row" style="margin-top:20px;">
             <label style="vertical-align:top" for=comments>Comments</label>
             &nbsp;
             <textarea name="comments" id="comments" cols="90" rows="3"></textarea>
         </div>
         <br/>
-        <div class="seventh_row">
+        <div class="form-row">
             <label id="status">Status</label>
             <select id ="status" name="status">
             <option style="display:none;"></option>
@@ -108,7 +125,7 @@
             {% endfor %}
             </select>
             &nbsp;
-            <label id="resolution">Resolution</label>
+            <!-- <label id="resolution">Resolution</label>
             <select id ="resolution" name="resolution">
             <option style="display:none;"></option>
             {% for option in resolution %}
@@ -122,45 +139,43 @@
             {% for option in resolution %}
             <option value="{{option}}">{{option}}</option>
             {% endfor %}
-            </select>
+            </select> -->
         </div>
         <br/>
-        <div class="eight_row">
-            <label id="resolved_by">Resolved by</label>
+        <div class="form-row">
+            <!-- <label id="resolved_by">Resolved by</label>
             <select id ="resolved_by" name="resolved_by">
             <option style="display:none;"></option>
             {% for option in employees %}
             <option value="{{option[1]}}">{{option[1]}}</option>
             {% endfor %}
-            </select>
+            </select> -->
             &nbsp;
-            <label for="resolved_date">Date</label>
+            <label for="resolved_date">Last Updated</label>
             <input type="date" id="resolved_date" name="resolved_date">
             &nbsp;
-            <label id="tested_by">Tested by</label>
+            <!-- <label id="tested_by">Tested by</label>
             <select id ="tested_by" name="tested_by">
             <option style="display:none;"></option>
             {% for option in employees %}
             <option value="{{option[1]}}">{{option[1]}}</option>
             {% endfor %}
             </select>
-            &nbsp;
-            <label for="tested_date">Date</label>
+            &nbsp; -->
+            <!-- <label for="tested_date">Date</label>
             <input type="date" id="tested_date" name="tested_date">
-            &nbsp;
-            <label id="treat_as">Treat as?</label>
-            <select id ="treat_as" name="treat_as">
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+            &nbsp; -->
             </select>
         </div>       
         <hr/>
-        <div class="ninth_row">
+
+        <div class="button-row">
             <input type="submit" class="btn" value="Submit">
-            <input type="reset" value="Reset">
-            <button><a href="{{url_for('index_page')}}" style="text-decoration:none;">Cancel</a></button>
-        </div>  
+            <input type="reset" class="btn" value="Reset">
+            <button type="button" class="btn"><a href="{{url_for('index_page')}}" >Cancel</a></button>
+        </div>
     </form>
+</div>
     {% if condition %}
     <h3>Fill Atleast Program Details</h3>
     {% endif %}

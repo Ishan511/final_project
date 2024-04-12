@@ -1,0 +1,93 @@
+body {
+    background-color: #f0f0f0; /* Light grey background */
+    font-family: Arial, sans-serif; /* Improve font readability */
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.textbox, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.btn, input[type="submit"], input[type="reset"], button[type="button"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 5px; /* Add some space between buttons */
+    font-size: inherit;
+    flex-grow: 1;
+}
+
+.btn:hover, input[type="submit"]:hover, input[type="reset"]:hover, button[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+/* This replaces .nav-link with the .btn class for consistency */
+.button-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Adjustments for h1 to align with the page style */
+h1 {
+    margin: 20px 0;
+    color: #333;
+}
+
+/* Styling for User Information Display - this seems to be for another page so it's kept */
+.user-info {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* General form styling */
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    margin: 20px 0;
+}
+
+/* Additional adjustments to the .btn class for link elements */
+.btn a {
+    color: white;
+    text-decoration: none;
+    display: block; /* Ensures the link takes up the entire space of the button */
+}
