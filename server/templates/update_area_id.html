@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add/Update Areas</title>
+</head>
+<body>
+    <a href="{{url_for('logout')}}">LogOut</a>
+    <br/>
+    <a href="{{url_for('database_maintenance')}}">Database Maintenance</a>
+    <br/>
+    <a href="{{url_for('index_page')}}">Home</a>
+    <table style="width:25%", border="1">
+    <h1>Add/Edit areas to {{name}} </h1>
+    <tr>
+        <th>Area ID</th>
+        <th>Program ID</th>
+        <th>Area</th>
+    </tr>
+    {% for area in data %}
+            <tr>
+                <td>{{ area[0] }}</td>
+                <td>{{ area[1] }} </td>
+                <form action="{{url_for('update_area_program',area_id=area[0],prog_id=prog_id)}}" method="POST">
+                    <td><input id="area_edit" name="area_edit" value="{{area[2]}}"></td>
+                    <td><input type="submit" class="btn" value="Update Area"></td>
+                </form>
+                <td><button><a style="text-decoration:None;width:25px" href="{{url_for('delete_area',area_id=area[0],prog_id=prog_id)}}">Delete Area</a></button></td>
+            </tr>
+    {% endfor %}
+    <tr>
+        <td>Add</td>
+        <td>{{prog_id}}</td>
+        <form action="{{url_for('add_area_program',prog_id=prog_id)}}" method="POST">
+        <td><input id="area_edit" name="area_edit"></td>
+        <td><input type="submit" class="btn" value="Add Area"></td>
+    </form>
+    </tr>
+    </table>
+    {% if condition1 %}
+    <h3>Fill all details</h3>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,110 @@
+body {
+    background-color: #f0f0f0; /* Light grey background */
+    font-family: Arial, sans-serif; /* Improve font readability */
+    margin: 0;
+    padding-top: 140px; /* Space for the fixed header */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center content horizontally */
+}
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    position: fixed; /* Header is fixed to the top */
+    top: 0;
+    z-index: 1000; /* Make sure the header is above other content */
+}
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: auto; /* Center the navigation */
+}
+
+.header-btn {
+    padding: 5px 10px;
+}
+
+.header-title {
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.content {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 60px; /* Add margin to the top of the content */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.textbox, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.btn, input[type="submit"], input[type="reset"], button[type="button"], .button-row .btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 5px; /* Space between buttons */
+    font-size: inherit;
+}
+
+.btn:hover, input[type="submit"]:hover, input[type="reset"]:hover, button[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center; /* Center buttons */
+    gap: 10px; /* Space between buttons */
+}
+
+.btn a {
+    color: white;
+    text-decoration: none;
+    display: block; /* Full width of the button */
+    height: 100%; /* Full height of the button */
+    text-align: center; /* Center text */
+}
+
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    margin: 40px 0;
+}
+
+/* You may want to remove any commented-out code if it's not needed */

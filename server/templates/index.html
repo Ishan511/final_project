@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <title>Bughound</title>
+</head>
+<body>
+    <div class="content">
+        <h1 style="text-align:center; width:auto">Welcome to Bughound</h1>
+        <a href="{{url_for('logout')}}" class="btn">Logout</a>
+        <a href="{{url_for('add_bug')}}" class="btn">Add Bug</a>
+        <a href="{{url_for('search_bug')}}" class="btn">Update Bug</a>
+        {% if condition %}
+        <a href="{{url_for('database_maintenance')}}" class="btn">Database Maintenance</a>
+        {% endif %}
+        <div class="user-info">
+            <h3 style="text-align:center; width:auto">User: {{name}} User Level: {{userlevel}}</h3>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Area</title>
+</head>
+<body>
+    <a href="{{url_for('logout')}}">LogOut</a>
+    <br/>
+    <a href="{{url_for('database_maintenance')}}">Database Maintenance</a>
+    <br/>
+    <a href="{{url_for('index_page')}}">Home</a>
+    <table style="width:25%", border="1">
+    {% for program in programs %}
+    <tr>
+    <td><a href="{{url_for('add_update_area_program',prog_id=program[0])}}">{{program[0] }}</a></td>
+    <td>{{program[1]}}</td>
+    <td>{{program[2]}}</td>
+    <td>{{program[3]}}</td>
+    {% endfor %}
+    </tr>
+    </table>
+</body>
+</html>
