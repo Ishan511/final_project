@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <title>Update Bug</title>
 </head>
 <body>
@@ -11,8 +12,12 @@
     <br/>
     <a href="{{url_for('index_page')}}">Home</a>
     <h1>Update Bug Page for {{bug_id}}</h1>
+
     <form method="POST" action="{{url_for('update_bug',bug_id=bug_id)}}">
-        <div class="first_row">
+        <div class="form-row">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title">
+            <!-- UPDATED PROGRAM -->
             <label id="program">Program</label>
             <select id ="program" name="program_options">
                 <option style="display:none;"></option>
@@ -21,42 +26,19 @@
                     <option value="{{'-'.join(program[1:])}}" {% if prog == data[0][1] %}selected{% endif %}>{{'-'.join(program[1:]) }}</option>
                 {% endfor %}
             </select>
-            &nbsp;
-            <label id="report_type">Report Type</label>
-            <select id ="report_type" name="report_options">
-                <option style="display:none;"></option>
-                {% for option in report_options %}
-                    <option value="{{option}}" {% if option == data[0][2] %}selected{% endif %}>{{option }}</option>
-                {% endfor %}
-            </select>
-            <label id="severity">Severity</label>
-            <select id ="severity" name="severity">
-                <option style="display:none;"></option>
-                {% for option in severity %}
-                <option value="{{option}}" {% if option == data[0][3] %}selected{% endif %}>{{option }}</option>
-                {% endfor %}
-            </select>
         </div>
         <br/>
-        <div class="second_row" style="display: inline-block;">
-            <label for="problem_summary">Problem Summary</label>
-            <input type="text" id="problem_summary" name="problem_summary" value="{{data[0][4]}}"></div>
+
+        <br/>
+        <div class="form-row" style="margin-top:20px;">
+            <label style="vertical-align:top" for=problem>Description</label>
             &nbsp;
-            <label id="reproducible">Reproducible?</label>
-            <select id ="reproducible" name="reproducible">
-                <option style="display:none;"></option>
-            <option value="Yes" {% if "Yes" == data[0][5] %}selected{% endif %} selected>Yes</option>
-            <option value="No" {% if "No" == data[0][5] %}selected{% endif %}>No</option>
-            </select>
+            <textarea name="problem" id="problem" cols="90" rows="3"></textarea>
         </div>
         <br/>
-        <div class="third_row" style="margin-top:20px;">
-            <label style="vertical-align:top" for=problem>Problem</label>
-            &nbsp;
-            <textarea name="problem" id="problem" cols="90" rows="3">{{data[0][6]}}</textarea>
-        </div>
-        <br/>
-        <div class="fourth_row">
+
+        <!-- UPDATED REPORTED-BY -->
+        <div class="form-row">
             <label id="reported_by">Reported By</label>
             <select id ="reported_by" name="reported_by">
                 <option style="display:none;"></option>
@@ -69,24 +51,29 @@
             <input type="date" id="entry_date" name="entry_date" value="{{data[0][8]}}"><br>
         </div>
         <hr/>
-        <div class="fifth_row">
+
+        <!-- UPDATED FUNCTIONAL AREA -->
+        <div class="form-row">
             <label id="areas">Functional Area</label>
             <select id ="areas" name="areas">
-            <option style="display:none;"></option>
-            {% for option in areas %}
-            <option value="{{option[2]}}" {% if option[2] == data[0][9] %}selected{% endif %}>{{option[2]}}</option>
-            {% endfor %}
+                <option style="display:none;"></option>
+                {% for option in areas %}
+                <option value="{{option[2]}}" {% if option[2] == data[0][9] %}selected{% endif %}>{{option[2]}}</option>
+                {% endfor %}
             </select>
             &nbsp;
+            <!-- UPDATED ASSIGNED-TO -->
             <label id="assigned_to">Assigned To</label>
             <select id ="assigned_to" name="assigned_to">
-            <option style="display:none;"></option>
-            {% for option in employees %}
-            <option value="{{option[1]}}" {% if option[1] == data[0][10] %}selected{% endif %}>{{option[1]}}</option>
-            {% endfor %}
+                <option style="display:none;"></option>
+                {% for option in employees %}
+                <option value="{{option[1]}}" {% if option[1] == data[0][10] %}selected{% endif %}>{{option[1]}}</option>
+                {% endfor %}
             </select>
         </div>
-        <div class="sixth_row" style="margin-top:20px;">
+
+        <!-- UPDATED COMMENTS -->
+        <div class="form-row" style="margin-top:20px;">
             <label style="vertical-align:top" for=comments>Comments</label>
             &nbsp;
             {% if data[0][11] %}
@@ -95,16 +82,22 @@
             <textarea name="comments" id="comments" cols="90" rows="3"></textarea>
             {% endif %}
         </div>
+        
         <br/>
-        <div class="seventh_row">
+
+        <!-- UPDATED STATUS -->
+        <div class="form-row">
             <label id="status">Status</label>
             <select id ="status" name="status">
-            <option style="display:none;"></option>
-            {% for option in status %}
-            <option value="{{option}}" {% if option == data[0][12] %}selected{% endif %}>{{option}}</option>
-            {% endfor %}
+                <option style="display:none;"></option>
+                {% for option in status %}
+                <option value="{{option}}" {% if option == data[0][12] %}selected{% endif %}>{{option}}</option>
+                {% endfor %}
             </select>
+
             &nbsp;
+            
+            <!-- UPDATED PRIORITY LEVEL -->
             <label id="priority">Priority</label>
             <select id ="priority" name="priority">
             <option style="display:none;"></option>
@@ -113,60 +106,54 @@
             {% endfor %}
             </select>
             &nbsp;
-            <label id="resolution">Resolution</label>
-            <select id ="resolution" name="resolution">
-            <option style="display:none;"></option>
-            {% for option in resolution %}
-            <option value="{{option}}" {% if option == data[0][14] %}selected{% endif %}>{{option}}</option>
-            {% endfor %}
-            </select>
-            &nbsp;
-            <label id="resolution_version">Resolution Version</label>
-            <select id ="resolution_version" name="resolution_version">
-            <option style="display:none;"></option>
-            {% for option in resolution %}
-            <option value="{{option}}" {% if option == data[0][15] %}selected{% endif %}>{{option}}</option>
-            {% endfor %}
-            </select>
+        
         </div>
+
         <br/>
-        <div class="eight_row">
+        
+        <div class="form-row">
+
+            <!-- UPDATED RESOLVED-BY -->
             <label id="resolved_by">Resolved by</label>
             <select id ="resolved_by" name="resolved_by">
-            <option style="display:none;"></option>
-            {% for option in employees %}
-            <option value="{{option[1]}}" {% if option[1] == data[0][16] %}selected{% endif %}>{{option[1]}}</option>
-            {% endfor %}
+                <option style="display:none;"></option>
+                {% for option in employees %}
+                <option value="{{option[1]}}" {% if option[1] == data[0][16] %}selected{% endif %}>{{option[1]}}</option>
+                {% endfor %}
             </select>
+
             &nbsp;
-            <label for="resolved_date">Date</label>
+            
+            <label for="resolved_date">Last Updated</label>
             <input type="date" id="resolved_date" name="resolved_date" value="{{data[0][17]}}">
+            
             &nbsp;
+            
             <label id="tested_by">Tested by</label>
             <select id ="tested_by" name="tested_by">
-            <option style="display:none;"></option>
-            {% for option in employees %}
-            <option value="{{option[1]}}" {% if option[1] == data[0][18] %}selected{% endif %}>{{option[1]}}</option>
-            {% endfor %}
+                <option style="display:none;"></option>
+                {% for option in employees %}
+                <option value="{{option[1]}}" {% if option[1] == data[0][18] %}selected{% endif %}>{{option[1]}}</option>
+                {% endfor %}
             </select>
+
             &nbsp;
+
             <label for="tested_date">Date</label>
             <input type="date" id="tested_date" name="tested_date" value="{{data[0][19]}}">
             &nbsp;
-            <label id="treat_as">Treat as?</label>
-            <select id ="treat_as" name="treat_as">
-            <option value="Yes" {% if "Yes" == data[0][20] %}selected{% endif %}>Yes</option>
-            <option value="No" {% if "No" == data[0][20] %}selected{% endif %}>No</option>
-            </select>
+            <!-- </select> -->
         </div>       
         <hr/>
-        <div class="ninth_row">
+
+        <div class="button-row">
             <input type="submit" class="btn" value="Submit">
-            <input type="reset" value="Reset">
-            <button><a href="{{url_for('index_page')}}" style="text-decoration:none;">Cancel</a></button>
-        </div> 
+            <input type="reset" class="btn" value="Reset">
+            <button type="button" class="btn"><a href="{{url_for('index_page')}}" >Cancel</a></button>
+        </div>
     </form>
-    <hr/>
+ 
+    <br/>
     <br/>
     <form action="{{url_for('view_attachment')}}" method="post">
         <label for="options"><b>Attachment</b></label>
