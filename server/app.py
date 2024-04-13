@@ -507,8 +507,12 @@ def add_update_area_program(prog_id,condition1=False):
         cur = db.execute(f"select * from areas where prog_id='{prog_id}'")
         data = cur.fetchall()
         cur1 = db.execute(f"select program from programs where prog_id='{prog_id}'")
-        name=cur1.fetchall()[0][0]
-        return render_template("update_area_id.html",data=data,prog_id=prog_id,name=name,condition1=condition1)
+        name = cur1.fetchall()
+        program_name = None
+        if name:
+            program_name = name[0][0]
+
+        return render_template("update_area_id.html",data=data,prog_id=prog_id,name=program_name,condition1=condition1)
     
 
 #add areas
