@@ -19,7 +19,7 @@ app.config["SECRET_KEY"] = "ThisisSecret!"
 
 ############### DB CONNECTIONS ########################
 def connect_db():
-    sql = sqlite3.connect('/Users/anurag/Documents/CSULB/Sem 4/CECS 544/Assignments/Semester Project/Bug_Hound-Project-main/final_project/server/db/bughound.db')
+    sql = sqlite3.connect('/Users/ishanunnarkar/Desktop/Projects/Bug_Hound-Project-main/server/db/bughound.db')
     sql.row_factory = sqlite3.Row
     return sql
 
@@ -97,12 +97,12 @@ def add_bug():
     programs = get_programs()
     areas = get_area()
     employees = get_employees()
-    report_options = ["Coding Error","Design Issue","Suggestion","Documentation","Hardware","Query"]
-    severity = ["Minor", "Serious", "Fatal"]
+    # report_options = ["Coding Error","Design Issue","Suggestion","Documentation","Hardware","Query"]
+    # severity = ["Minor", "Serious", "Fatal"]
     status=["open","closed","resolved"]
     priority = [1,2,3,4,5,6]
-    resolution = ["Pending","Fixed","Irreproducible","Deferred","As designed","Withdrawn by reporter","Need more info",\
-                  "Disagree with suggestion","Duplicate"]
+    # resolution = ["Pending","Fixed","Irreproducible","Deferred","As designed","Withdrawn by reporter","Need more info",\
+    #               "Disagree with suggestion","Duplicate"]
     if "loggedin" not in session:
         return render_template("login.html")
     if request.method=="POST":
@@ -123,16 +123,16 @@ def add_bug():
             return redirect(url_for("add_bug"))
         else:
             return render_template("add_bug.html",program_options=programs,\
-                           report_options=report_options,severity=severity,employees=employees,\
-                            areas=areas,status=status,priority=priority,resolution=resolution,\
+                           employees=employees,\
+                            areas=areas,status=status,priority=priority,\
                                 condition=True)
 
         
     
     #entry_date = datetime.datetime.now().strftime("%m/%d/%Y")
     return render_template("add_bug.html",program_options=programs,\
-                           report_options=report_options,severity=severity,employees=employees,\
-                            areas=areas,status=status,priority=priority,resolution=resolution)
+                           employees=employees,\
+                            areas=areas,status=status,priority=priority)
 
 
 @app.route("/view_attachment",methods=["GET","POST"])
@@ -194,20 +194,20 @@ def update_bug(bug_id):
     programs = get_programs()
     employees = get_employees()
     areas = get_area()
-    report_options = ["Coding Error","Design Issue","Suggestion","Documentation","Hardware","Query"]
-    severity = ["Minor", "Serious", "Fatal"]
+    # report_options = ["Coding Error","Design Issue","Suggestion","Documentation","Hardware","Query"]
+    # severity = ["Minor", "Serious", "Fatal"]
     status=["open","closed","resolved"]
     priority = [1,2,3,4,5,6]
-    resolution = ["Pending","Fixed","Irreproducible","Deferred","As designed","Withdrawn by reporter","Need more info",\
-                  "Disagree with suggestion","Duplicate"]
+    # resolution = ["Pending","Fixed","Irreproducible","Deferred","As designed","Withdrawn by reporter","Need more info",\
+    #               "Disagree with suggestion","Duplicate"]
     attach_cur = db.execute(f'select * from attach where bug_id={bug_id}')
     attach = attach_cur.fetchall()
     # return render_template("update_bug.html",bug_id=bug_id,data=data,programs=programs,report_options=report_options,\
     #                        severity=severity,employees=employees,areas=areas,\
     #                         status=status,priority=priority,resolution=resolution,attach=attach)
-    return render_template("update_bug.html",bug_id=bug_id,data=data,programs=programs,report_options=report_options,\
-                           severity=severity,employees=employees,areas=areas,\
-                            status=status,priority=priority,resolution=resolution,attach=attach)
+    return render_template("update_bug.html",bug_id=bug_id,data=data,programs=programs,\
+                           employees=employees,areas=areas,\
+                            status=status,priority=priority,attach=attach)
 
 @app.route("/result_bug",methods=["GET","POST"])
 def result_bug():
@@ -225,16 +225,16 @@ def result_bug():
     db=get_db()
     query = "SELECT * FROM bugs WHERE "
     if program != 'ALL':
-        query += f"program_options = '{program}' AND "
+        query += f"problem_summary = '{program}' AND "
     # if report_type != 'ALL':
     #     query += f"report_type = '{report_type}' AND "
     # if severity != 'ALL':
     #     query += f"severity = '{severity}' AND "
     if areas != 'ALL':
-        query += f"functional_area = '{areas}' AND "
+        query += f"areas = '{areas}' AND "
     if assigned_to != 'ALL':
         query += f"assigned_to = '{assigned_to}' AND "
-    if reported_by != 'ALL':
+    if reported_by != 'ALL': 
         query += f"reported_by = '{reported_by}' AND "
     if status != 'ALL':
         query += f"status = '{status}' AND "
