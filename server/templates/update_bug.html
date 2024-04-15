@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/database_maintenance.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <title>Update Bug</title>
 </head>
 <body>
@@ -22,14 +22,11 @@
             <input type="text" id="problem_summary" name="problem_summary" value="{{ data.problem_summary }}">
             <!-- UPDATED PROGRAM -->
         </div>
-        <br/>
         <div class="form-row" style="margin-top:20px;">
             <label style="vertical-align:top" for=problem>Description</label>
             &nbsp;
             <textarea name="problem" id="problem" cols="90" rows="3" >{{ data.problem }}</textarea>
         </div>
-        <br/>
-        <br/>
         <div class="form-row">
             <label id="reported_by">Reported By</label>
             <select id ="reported_by" name="reported_by">
