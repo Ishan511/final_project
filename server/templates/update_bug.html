@@ -60,7 +60,6 @@
                 {% endfor %}
             </select>
         </div>
-        <br/>
         <div class="form-row" style="margin-top:20px;">
             <label style="vertical-align:top" for=comments>Comments</label>
             &nbsp;
@@ -100,14 +99,14 @@
             <label for="resolved_date">Last Updated</label>
             <input type="date" id="resolved_date" name="resolved_date" value="{{data[0][17]}}">
         </div>
-        <label id="program">Program</label>
+        <!-- <label id="program">Program</label>
             <select id ="program" name="program_options">
                 <option style="display:none;"></option>
                 {% for program in programs %}
                     {% set prog = '-'.join(program[1:]) %}
                     <option value="{{'-'.join(program[1:])}}" {% if prog == data[0][1] %}selected{% endif %}>{{'-'.join(program[1:]) }}</option>
                 {% endfor %}
-            </select>
+            </select> -->
         <br/>
         
         <!-- <div class="form-row" style="margin-top:20px;">
