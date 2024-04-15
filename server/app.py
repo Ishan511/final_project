@@ -19,11 +19,7 @@ app.config["SECRET_KEY"] = "ThisisSecret!"
 
 ############### DB CONNECTIONS ########################
 def connect_db():
-<<<<<<< HEAD
     sql = sqlite3.connect('/Users/anurag/Documents/CSULB/Sem 4/CECS 544/Assignments/Semester Project/Bug_Hound-Project-main/final_project/server/db/bughound.db')
-=======
-    sql = sqlite3.connect("/Users/ishanunnarkar/Desktop/Projects/Bug_Hound-Project-main/server/db/bughound.db")
->>>>>>> 3c6ae89e2f5d07f9c8c0b6d2fbf84e7b2cf9ec63
     sql.row_factory = sqlite3.Row
     return sql
 
