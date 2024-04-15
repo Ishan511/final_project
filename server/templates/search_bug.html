@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/database_maintenance.css') }}">
     <title>Document</title>
 </head>
 <body>
-    <h1>Bug Search Page</h1>
+    <div class="header">
+        <div class="navigation">
+            <a href="{{url_for('logout')}}" class="btn header-btn">LogOut</a>
+            <span class="header-title">Bug Search Page</span>
+            <a href="{{url_for('index_page')}}" class="btn header-btn">Home</a>
+        </div>
+    </div>
         <form method="POST" action="{{url_for('result_bug')}}">
             <table style="width:25%", border="1">
             <tr>
-            <td><label id="program">Program</label></td>
+            <td><label id="program">Title</label></td>
                 <td><select id ="program" name="program_options">
                 <option value=ALL selected>ALL</option>
                 {% for option in programs %}
@@ -100,7 +107,7 @@
         &nbsp;
         <input type="reset" value="Reset">
         &nbsp;
-        <button><a href="{{url_for('index_page')}}" style="text-decoration:none;">Cancel</a></button>
+        <a href="{{url_for('index_page')}}" class="btn" style="text-decoration: none; color: white;">Cancel</a>
         </form>
 </body>
 </html>

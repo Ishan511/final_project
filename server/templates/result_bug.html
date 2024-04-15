@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/database_maintenance.css') }}">
     <title>Search Result</title>
 </head>
 <body>
-    <a href="{{url_for('logout')}}">LogOut</a>
-    <br/>
-    <a href="{{url_for('index_page')}}">Home</a>
-    <h1>Your Search Yielded</h1>
-    <table style="width:25%", border="1">
+    <div class="header">
+        <div class="navigation">
+            <a href="{{url_for('logout')}}" class="btn header-btn">LogOut</a>
+            <span class="header-title">Your Search Yielded</span>
+            <a href="{{url_for('index_page')}}" class="btn header-btn">Home</a>
+        </div>
+    </div>
+    <div class="styled-container">
+        <table style="width:100%", border="1">
         <tr>
             <th>Bug ID</th>
             <th>Program</th>
@@ -24,7 +29,8 @@
                 <td>{{ col[2]}}</td>
             </tr>
     {% endfor %}
-    </table>
+        </table>
+    </div>
     
 </body>
 </html>
