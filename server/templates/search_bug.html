@@ -18,7 +18,7 @@
         <form method="POST" action="{{url_for('result_bug')}}">
             <table style="width:25%", border="1">
             <tr>
-            <td><label id="program">Program</label></td>
+            <td><label id="program">Title</label></td>
                 <td><select id ="program" name="program_options">
                 <option value=ALL selected>ALL</option>
                 {% for option in programs %}

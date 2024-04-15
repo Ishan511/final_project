@@ -19,7 +19,7 @@ app.config["SECRET_KEY"] = "ThisisSecret!"
 
 ############### DB CONNECTIONS ########################
 def connect_db():
-    sql = sqlite3.connect(r'C:\Users\030737107\Desktop\Projects\final_project-1\server\db\bughound.db')
+    sql = sqlite3.connect("/Users/ishanunnarkar/Desktop/Projects/Bug_Hound-Project-main/server/db/bughound.db")
     sql.row_factory = sqlite3.Row
     return sql
 
@@ -190,14 +190,14 @@ def update_bug(bug_id):
     
     query = f"select * from bugs where bug_id={bug_id}"
     cur = db.execute(query)
-    data = cur.fetchall()
+    data = cur.fetchone()
     programs = get_programs()
     employees = get_employees()
     areas = get_area()
     # report_options = ["Coding Error","Design Issue","Suggestion","Documentation","Hardware","Query"]
     # severity = ["Minor", "Serious", "Fatal"]
     status=["open","closed","resolved"]
-    priority = [1,2,3,4,5,6]
+    priority = ["1","2","3","4","5","6"]
     # resolution = ["Pending","Fixed","Irreproducible","Deferred","As designed","Withdrawn by reporter","Need more info",\
     #               "Disagree with suggestion","Duplicate"]
     attach_cur = db.execute(f'select * from attach where bug_id={bug_id}')
@@ -207,7 +207,7 @@ def update_bug(bug_id):
     #                         status=status,priority=priority,resolution=resolution,attach=attach)
     return render_template("update_bug.html",bug_id=bug_id,data=data,programs=programs,\
                            employees=employees,areas=areas,\
-                            status=status,priority=priority,attach=attach)
+                            status=status,priority=priority)
 
 @app.route("/result_bug",methods=["GET","POST"])
 def result_bug():
@@ -259,8 +259,8 @@ def search_bug():
     programs =[i[1] for i in data]
     areas = get_area()
     area = [i for i in areas]
-    assigned_to=[i[2] for i in employee]
-    reported_by=[i[2] for i in employee]
+    assigned_to=[i[1] for i in employee]
+    reported_by=[i[1] for i in employee]
     status=["open","closed","resolved"]
     report_type = ["Coding Error","Design Issue","Suggestion","Documentation","Hardware","Query"]
     severity = ["Minor", "Serious", "Fatal"]

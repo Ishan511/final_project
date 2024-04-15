@@ -19,49 +19,35 @@
     <form method="POST" action="{{url_for('update_bug',bug_id=bug_id)}}">
         <div class="form-row">
             <label for="problem_summary">Title</label>
-            <input type="text" id="problem_summary" name="problem_summary">
+            <input type="text" id="problem_summary" name="problem_summary" value="{{ data.problem_summary }}">
             <!-- UPDATED PROGRAM -->
-            <label id="program">Program</label>
-            <select id ="program" name="program_options">
-                <option style="display:none;"></option>
-                {% for program in programs %}
-                    {% set prog = '-'.join(program[1:]) %}
-                    <option value="{{'-'.join(program[1:])}}" {% if prog == data[0][1] %}selected{% endif %}>{{'-'.join(program[1:]) }}</option>
-                {% endfor %}
-            </select>
         </div>
-        <br/>
-
         <br/>
         <div class="form-row" style="margin-top:20px;">
             <label style="vertical-align:top" for=problem>Description</label>
             &nbsp;
-            <textarea name="problem" id="problem" cols="90" rows="3"></textarea>
+            <textarea name="problem" id="problem" cols="90" rows="3" >{{ data.problem }}</textarea>
         </div>
         <br/>
-
-        <!-- UPDATED REPORTED-BY -->
+        <br/>
         <div class="form-row">
             <label id="reported_by">Reported By</label>
             <select id ="reported_by" name="reported_by">
-                <option style="display:none;"></option>
-                {% for option in employees %}
-                <option value="{{option[1]}}" {% if option[1] == data[0][7] %}selected{% endif %}>{{option[1]}}</option>
+                {% for employee in employees %}
+                <option value="{{ employee.name }}" {% if employee.name == data.reported_by %}selected{% endif %}>{{ employee.name }}</option>
                 {% endfor %}
             </select>
             &nbsp;
             <label for="entry_date">Date</label>
-            <input type="date" id="entry_date" name="entry_date" value="{{data[0][8]}}"><br>
+            <input type="date" id="entry_date" name="entry_date" value="{{ data.entry_date }}"><br>
         </div>
         <hr/>
-
-        <!-- UPDATED FUNCTIONAL AREA -->
         <div class="form-row">
             <label id="areas">Functional Area</label>
             <select id ="areas" name="areas">
                 <option style="display:none;"></option>
-                {% for option in areas %}
-                <option value="{{option[2]}}" {% if option[2] == data[0][9] %}selected{% endif %}>{{option[2]}}</option>
+                {% for area in areas %}
+                <option value="{{area.area}}" {% if area.area == data.areas %}selected{% endif %}>{{ data.areas }}</option>
                 {% endfor %}
             </select>
             &nbsp;
@@ -69,32 +55,30 @@
             <label id="assigned_to">Assigned To</label>
             <select id ="assigned_to" name="assigned_to">
                 <option style="display:none;"></option>
-                {% for option in employees %}
-                <option value="{{option[1]}}" {% if option[1] == data[0][10] %}selected{% endif %}>{{option[1]}}</option>
+                {% for employee in employees %}
+                <option value="{{employee.name}}" {% if employee.name == data.assigned_to %}selected{% endif %}>{{data.assigned_to}}</option>
                 {% endfor %}
             </select>
         </div>
-
-        <!-- UPDATED COMMENTS -->
         <div class="form-row" style="margin-top:20px;">
             <label style="vertical-align:top" for=comments>Comments</label>
             &nbsp;
             {% if data[0][11] %}
-                <textarea name="comments" id="comments" cols="90" rows="3">{{data[0][11]}}</textarea>
+                <textarea name="comments" id="comments" cols="90" rows="3">{{ data.comments }}</textarea>
             {% else %}
-            <textarea name="comments" id="comments" cols="90" rows="3"></textarea>
+            <textarea name="comments" id="comments" cols="90" rows="3">{{ data.comments }}</textarea>
             {% endif %}
         </div>
         
         <br/>
 
-        <!-- UPDATED STATUS -->
-        <div class="form-row">
+         <!-- UPDATED STATUS -->
+         <div class="form-row">
             <label id="status">Status</label>
             <select id ="status" name="status">
                 <option style="display:none;"></option>
-                {% for option in status %}
-                <option value="{{option}}" {% if option == data[0][12] %}selected{% endif %}>{{option}}</option>
+                {% for stat in status %}
+                <option value="{{stat}}" {% if stat == data.status %}selected{% endif %}>{{data.status}}</option>
                 {% endfor %}
             </select>
 
@@ -104,19 +88,49 @@
             <label id="priority">Priority</label>
             <select id ="priority" name="priority">
             <option style="display:none;"></option>
-            {% for option in priority %}
-            <option value="{{option}}" {% if option == data[0][13] %}selected{% endif %}>{{option}}</option>
+            {% for prior in priority %}
+            <option value="{{prior}}" {% if prior == data.priority %}selected{% endif %}>{{data.priority}}</option>
             {% endfor %}
             </select>
             &nbsp;
-        
+            
         </div>
-
+        <div> 
+            <label for="resolved_date">Last Updated</label>
+            <input type="date" id="resolved_date" name="resolved_date" value="{{data[0][17]}}">
+        </div>
+        <!-- <label id="program">Program</label>
+            <select id ="program" name="program_options">
+                <option style="display:none;"></option>
+                {% for program in programs %}
+                    {% set prog = '-'.join(program[1:]) %}
+                    <option value="{{'-'.join(program[1:])}}" {% if prog == data[0][1] %}selected{% endif %}>{{'-'.join(program[1:]) }}</option>
+                {% endfor %}
+            </select> -->
         <br/>
         
+        <!-- <div class="form-row" style="margin-top:20px;">
+            <label style="vertical-align:top" for=problem>Description</label>
+            &nbsp;
+            <textarea name="problem" id="problem" cols="90" rows="3"></textarea>
+        </div>
+        <br/> -->
+
+        <!-- UPDATED REPORTED-BY -->
+        
+        <!-- UPDATED FUNCTIONAL AREA -->
+
+        <!-- UPDATED COMMENTS -->
+       
+        <br/>
+
+       
+
+        <br/>
+<!--         
         <div class="form-row">
 
-            <!-- UPDATED RESOLVED-BY -->
+       
             <label id="resolved_by">Resolved by</label>
             <select id ="resolved_by" name="resolved_by">
                 <option style="display:none;"></option>
@@ -145,9 +159,9 @@
             <label for="tested_date">Date</label>
             <input type="date" id="tested_date" name="tested_date" value="{{data[0][19]}}">
             &nbsp;
-            <!-- </select> -->
+    
         </div>       
-        <hr/>
+        <hr/> -->
 
         <div class="button-row">
             <input type="submit" class="btn" value="Submit">
