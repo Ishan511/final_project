@@ -36,6 +36,8 @@ body {
     margin-top: 10px;
     text-align: center;
     width: 100%;
+    font-size: larger;
+    font-weight: 700;
 }
 
 .content {

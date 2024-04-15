@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/database_maintenance.css') }}">
     <title>Database Maintenance for Bug hound</title>
 </head>
 <body>
@@ -20,5 +21,40 @@
     <a href="{{url_for('update_employee')}}"><h2>Edit Employee</h2></a>
     <a href="{{url_for('delete_employee')}}"><h2>Delete Employee</h2></a>
     <a href="{{url_for('export_employee_ascii')}}"><h2>Export Employees</h2></a>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/database_maintenance.css') }}">
+    <title>Database Maintenance for Bug hound</title>
+</head>
+<body>
+    <!-- Header section starts -->
+    <div class="header">
+        <div class="navigation">
+            <a href="{{url_for('logout')}}" class="btn header-btn">LogOut</a>
+            <span class="header-title">Database Maintenance</span>
+            <a href="{{url_for('index_page')}}" class="btn header-btn">Home</a>
+        </div>
+    </div>
+    <!-- Header section ends -->
+
+    <!-- Main content starts -->
+    <div class="main-content">
+        <a href="{{url_for('add_area')}}"><h2>Add/Edit/Delete Areas</h2></a>
+        <a href="{{url_for('add_program')}}"><h2>Add Program</h2></a>
+        <a href="{{url_for('update_program')}}"><h2>Edit Program</h2></a>
+        <a href="{{url_for('delete_program')}}"><h2>Delete Program</h2></a>
+        <a href="{{url_for('export_program_xml')}}"><h2>Export Programs</h2></a>
+        <a href="{{url_for('add_employee')}}"><h2>Add Employee</h2></a>
+        <a href="{{url_for('update_employee')}}"><h2>Edit Employee</h2></a>
+        <a href="{{url_for('delete_employee')}}"><h2>Delete Employee</h2></a>
+        <a href="{{url_for('export_employee_ascii')}}"><h2>Export Employees</h2></a>
+    </div>
+    <!-- Main content ends -->
 </body>
 </html>
