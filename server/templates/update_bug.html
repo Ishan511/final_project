@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/database_maintenance.css') }}">
     <title>Update Bug</title>
 </head>
 <body>
-    <a href="{{url_for('logout')}}">LogOut</a>
-    <br/>
-    <a href="{{url_for('index_page')}}">Home</a>
-    <h1>Update Bug Page for {{bug_id}}</h1>
+    <div class="header">
+        <div class="navigation">
+            <a href="{{url_for('logout')}}" class="btn header-btn">LogOut</a>
+            <span class="header-title">Update Bug Page for {{bug_id}}</span>
+            <a href="{{url_for('index_page')}}" class="btn header-btn">Home</a>
+        </div>
+    </div>
 
     <form method="POST" action="{{url_for('update_bug',bug_id=bug_id)}}">
         <div class="form-row">
@@ -164,7 +167,7 @@
         <div class="button-row">
             <input type="submit" class="btn" value="Submit">
             <input type="reset" class="btn" value="Reset">
-            <button type="button" class="btn"><a href="{{url_for('index_page')}}" >Cancel</a></button>
+            <a href="{{url_for('index_page')}}" class="btn" style="text-decoration: none; color: white;">Cancel</a>
         </div>
     </form>
  

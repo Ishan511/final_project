@@ -23,6 +23,82 @@ body {
     z-index: 1000;
 }
 
+/* Table styles */
+table {
+    width: 100%;
+    max-width: 600px; /* Adjust the width as necessary */
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #ddd; /* Light grey border */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Form container for better framing and spacing */
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    margin-top: 20px; /* Adjust as needed */
+}
+
+/* Table header styling */
+table thead tr {
+    background-color: #e9e9e9;
+}
+
+/* Table body row styling for alternate colors */
+table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* Form labels */
+label {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* Enhance button appearance */
+.btn, input[type="submit"], input[type="reset"], button[type="button"] {
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Cancel link styled as a button */
+.cancel-link {
+    background-color: #f0f0f0;
+    color: #007bff;
+    display: inline-block;
+    text-align: center;
+}
+
+.cancel-link:hover {
+    background-color: #e0e0e0;
+    text-decoration: none; /* Remove underline on hover */
+}
+
+/* Responsive table */
+@media screen and (max-width: 768px) {
+    table {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
 .navigation {
     display: flex;
     justify-content: space-between;
@@ -110,3 +186,19 @@ body {
     text-align: center; /* Center text within the button */
 }
 
+/* ... existing styles ... */
+
+.styled-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    margin-top: 20px; /* Adjust as needed for space from the navigation bar */
+    margin-bottom: 20px; /* Space from the bottom */
+    margin-left: auto; /* Center the container */
+    margin-right: auto; /* Center the container */
+    width: fit-content; /* Adjust to the content size */
+    max-width: 90%; /* Maximum width of the container */
+    display: flex;
+    justify-content: space-evenly;
+}
