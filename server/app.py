@@ -42,8 +42,6 @@ def index_page():
             condition=True
             ar = ["", "User", "Employee", "Admin"]
     return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"], users = ar)
-            ar = ["", "User", "Employee", "Admin"]
-    return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"], users = ar)
 @app.route("/",methods=["GET","POST"])
 def index():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
@@ -61,7 +59,6 @@ def index():
             session['username'] = account[0]["username"]
             session['user_level'] = account[0]["userlevel"]
             condition = False
-            if session['user_level']==3 or session['user_level']==2:
             if session['user_level']==3 or session['user_level']==2:
                 condition=True
             return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"], users = ar)
@@ -214,7 +211,6 @@ def update_bug(bug_id):
     #                         status=status,priority=priority,resolution=resolution,attach=attach)
     return render_template("update_bug.html",bug_id=bug_id,data=data,programs=programs,\
                            employees=employees,areas=areas,\
-                            status=status,priority=priority, attach=attach)
                             status=status,priority=priority, attach=attach)
 
 @app.route("/result_bug",methods=["GET","POST"])
