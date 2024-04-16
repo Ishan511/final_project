@@ -17,7 +17,8 @@
         <a href="{{url_for('database_maintenance')}}" class="btn">Database Maintenance</a>
         {% endif %}
         <div class="user-info">
-            <h3 style="text-align:center; width:auto">User: {{name}} User Level: {{userlevel}}</h3>
+            <h3 style="text-align:center; width:auto">User: {{name}}</h3> 
+            <h4 style="text-align:center; width:auto">User Level: {{users[userlevel]}}</h4>
         </div>
     </div>
 </body>
