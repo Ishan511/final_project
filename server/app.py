@@ -42,6 +42,8 @@ def index_page():
             condition=True
             ar = ["", "User", "Employee", "Admin"]
     return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"], users = ar)
+            ar = ["", "User", "Employee", "Admin"]
+    return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"], users = ar)
 @app.route("/",methods=["GET","POST"])
 def index():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
@@ -53,13 +55,16 @@ def index():
         account = cur.fetchall()
         if account:
             ar = ["", "User", "Employee", "Admin"]
+            ar = ["", "User", "Employee", "Admin"]
             session['loggedin'] = True
             session['id'] = account[0]["emp_id"]
             session['username'] = account[0]["username"]
             session['user_level'] = account[0]["userlevel"]
             condition = False
             if session['user_level']==3 or session['user_level']==2:
+            if session['user_level']==3 or session['user_level']==2:
                 condition=True
+            return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"], users = ar)
             return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"], users = ar)
         else:
             return render_template("login.html",msg="True")
@@ -210,6 +215,7 @@ def update_bug(bug_id):
     return render_template("update_bug.html",bug_id=bug_id,data=data,programs=programs,\
                            employees=employees,areas=areas,\
                             status=status,priority=priority, attach=attach)
+                            status=status,priority=priority, attach=attach)
 
 @app.route("/result_bug",methods=["GET","POST"])
 def result_bug():
@@ -282,6 +288,10 @@ def search_bug():
 ################## DATABASE MAINTENANCE ##########################
 @app.route("/database_maintenance")
 def database_maintenance():
+    # if session['user_level']==3:
+    #             condition=True
+    #         return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"])
+    return render_template("database_maintenance.html", userlevel=session["user_level"])
     # if session['user_level']==3:
     #             condition=True
     #         return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"])
