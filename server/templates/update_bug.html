@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/database_maintenance.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <title>Update Bug</title>
 </head>
 <body>
@@ -20,16 +20,23 @@
         <div class="form-row">
             <label for="problem_summary">Title</label>
             <input type="text" id="problem_summary" name="problem_summary" value="{{ data.problem_summary }}">
+            &nbsp;
+            &nbsp;
+            <label id="program">Program</label>
+            <select id ="program" name="program_options">
+                <option style="display:none;"></option>
+                {% for program in programs %}
+                    {% set prog = '-'.join(program[1:]) %}
+                    <option value="{{'-'.join(program[1:])}}" {% if prog == data.program_options %}selected{% endif %}>{{'-'.join(program[1:]) }}</option>
+                {% endfor %}
+            </select>
             <!-- UPDATED PROGRAM -->
         </div>
-        <br/>
         <div class="form-row" style="margin-top:20px;">
             <label style="vertical-align:top" for=problem>Description</label>
             &nbsp;
             <textarea name="problem" id="problem" cols="90" rows="3" >{{ data.problem }}</textarea>
         </div>
-        <br/>
-        <br/>
         <div class="form-row">
             <label id="reported_by">Reported By</label>
             <select id ="reported_by" name="reported_by">
@@ -99,12 +106,13 @@
             <label for="resolved_date">Last Updated</label>
             <input type="date" id="resolved_date" name="resolved_date" value="{{data[0][17]}}">
         </div>
+        <br/>
         <!-- <label id="program">Program</label>
             <select id ="program" name="program_options">
                 <option style="display:none;"></option>
                 {% for program in programs %}
                     {% set prog = '-'.join(program[1:]) %}
-                    <option value="{{'-'.join(program[1:])}}" {% if prog == data[0][1] %}selected{% endif %}>{{'-'.join(program[1:]) }}</option>
+                    <option value="{{'-'.join(program[1:])}}" {% if prog == data.program_options %}selected{% endif %}>{{'-'.join(program[1:]) }}</option>
                 {% endfor %}
             </select> -->
         <br/>
