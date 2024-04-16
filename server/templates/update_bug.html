@@ -20,6 +20,16 @@
         <div class="form-row">
             <label for="problem_summary">Title</label>
             <input type="text" id="problem_summary" name="problem_summary" value="{{ data.problem_summary }}">
+            &nbsp;
+            &nbsp;
+            <label id="program">Program</label>
+            <select id ="program" name="program_options">
+                <option style="display:none;"></option>
+                {% for program in programs %}
+                    {% set prog = '-'.join(program[1:]) %}
+                    <option value="{{'-'.join(program[1:])}}" {% if prog == data.program_options %}selected{% endif %}>{{'-'.join(program[1:]) }}</option>
+                {% endfor %}
+            </select>
             <!-- UPDATED PROGRAM -->
         </div>
         <div class="form-row" style="margin-top:20px;">
@@ -96,12 +106,13 @@
             <label for="resolved_date">Last Updated</label>
             <input type="date" id="resolved_date" name="resolved_date" value="{{data[0][17]}}">
         </div>
+        <br/>
         <!-- <label id="program">Program</label>
             <select id ="program" name="program_options">
                 <option style="display:none;"></option>
                 {% for program in programs %}
                     {% set prog = '-'.join(program[1:]) %}
-                    <option value="{{'-'.join(program[1:])}}" {% if prog == data[0][1] %}selected{% endif %}>{{'-'.join(program[1:]) }}</option>
+                    <option value="{{'-'.join(program[1:])}}" {% if prog == data.program_options %}selected{% endif %}>{{'-'.join(program[1:]) }}</option>
                 {% endfor %}
             </select> -->
         <br/>
