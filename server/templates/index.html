@@ -7,19 +7,26 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <title>Bughound</title>
 </head>
-<body style="padding-top: 0px;"">
-    <div class="content">
-        <h1 style="text-align:center; width:auto">Bughound</h1>
-        <h2 style="text-align:center; width:auto">Welcome, {{name}}!</h2> 
-        <h3>You are an {{users[userlevel]}}</h3>
-        <a href="{{url_for('logout')}}" class="btn">Logout</a>
-        <a href="{{url_for('add_bug')}}" class="btn">Add Bug</a>
-        <a href="{{url_for('search_bug')}}" class="btn">Update Bug</a>
-        {% if condition %}
-        <a href="{{url_for('database_maintenance')}}" class="btn">Database Maintenance</a>
-        {% endif %}
-        
+<body style="padding-top: 150px;">
+    <!-- Container div with a shadow -->
+    <div style="box-shadow: 0px 4px 8px rgba(0,0,0,0.1); margin: 20px; padding: 20px;">
+        <div class="content" style="margin-top: 0px; text-align:center;">
+            <h1>Bughound</h1>
+            <h2>Welcome, {{name}}!</h2> 
+            <h3>You are an {{users[userlevel]}}</h3>
+            <div class="buttons">
+                <a href="{{url_for('add_bug')}}" class="btn">Add Bug</a>
+                <a href="{{url_for('search_bug')}}" class="btn">Update Bug</a>
+            </div><br/>
+            {% if condition %}
+            <div class="database-btn">
+                <a href="{{url_for('database_maintenance')}}" class="btn database">Database Maintenance</a>
+            </div><br/>
+            {% endif %}
+            <div class="logout-btn">
+                <a href="{{url_for('logout')}}" class="btn logout">Logout</a>
+            </div>
+        </div>
     </div>
 </body>
-
 </html>
