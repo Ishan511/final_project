@@ -27,7 +27,7 @@
                 </select></td>
             
             </tr>
-            <!-- <tr> <td><label id="report_type">Report Type</label></td>
+            <tr> <td><label id="report_type">Report Type</label></td>
                 <td>
                 <select id ="report_type" name="report_options">
                 <option value=ALL selected>ALL</option>
@@ -35,17 +35,17 @@
                 <option value="{{option}}">{{option}}</option>
                 {% endfor %}
                 </select>
-                </td></tr> -->
+                </td></tr>
     
            
-            <!-- <tr>
+            <tr>
                 <td><label id="severity">Severity</label></td>
                 <td><select id ="severity" name="severity">
                     <option value=ALL>ALL</option>
                     {% for option in severity %}
                     <option value="{{option}}">{{option}}</option>
                     {% endfor %}
-                    </select></td></tr> -->
+                    </select></td></tr>
             
             <tr><td><label id="areas">Functional Area</label></td>
                 <td><select id ="areas" name="areas">
@@ -74,6 +74,12 @@
                     </select>
                 </td>
             </tr>
+            <tr>
+                <td><label for="entry_date">Reported Date</label></td>
+                <td>
+                    <input type="date" id="entry_date" name="entry_date">
+                </td>
+            </tr>
             
             <tr><td><label id="status">Status</label></td>
                 <td><select id ="status" name="status">
@@ -91,7 +97,7 @@
                     <option value="{{option}}">{{option}}</option>
                     {% endfor %}
                     </select></td></tr>
-            <!-- <tr>
+            <tr>
                 <td><label id="resolution">Resolution</label></td>
             <td><select id ="resolution" name="resolution">
                 <option value=ALL>ALL</option>
@@ -99,7 +105,7 @@
                 <option value="{{option}}">{{option}}</option>
                 {% endfor %}
                 </select></td>
-            </tr> -->
+            </tr> 
             
         </table>
         <br/>

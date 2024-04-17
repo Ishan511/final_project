@@ -101,12 +101,12 @@ def add_bug():
     programs = get_programs()
     areas = get_area()
     employees = get_employees()
-    # report_options = ["Coding Error","Design Issue","Suggestion","Documentation","Hardware","Query"]
-    # severity = ["Minor", "Serious", "Fatal"]
+    report_options = ["Coding Error","Design Issue","Suggestion","Documentation","Hardware","Query"]
+    severity = ["Minor", "Serious", "Fatal"]
     status=["open","closed","resolved"]
     priority = [1,2,3,4,5,6]
-    # resolution = ["Pending","Fixed","Irreproducible","Deferred","As designed","Withdrawn by reporter","Need more info",\
-    #               "Disagree with suggestion","Duplicate"]
+    resolution = ["Pending","Fixed","Irreproducible","Deferred","As designed","Withdrawn by reporter","Need more info",\
+                  "Disagree with suggestion","Duplicate"]
     if "loggedin" not in session:
         return render_template("login.html")
     if request.method=="POST":
@@ -127,15 +127,15 @@ def add_bug():
             return redirect(url_for("add_bug"))
         else:
             return render_template("add_bug.html",program_options=programs,\
-                           employees=employees,\
-                            areas=areas,status=status,priority=priority,\
+                           employees=employees,resolution=resolution,\
+                            areas=areas,status=status,report_options=report_options,severity=severity, priority=priority,\
                                 condition=True)
 
         
     
     #entry_date = datetime.datetime.now().strftime("%m/%d/%Y")
-    return render_template("add_bug.html",program_options=programs,\
-                           employees=employees,\
+    return render_template("add_bug.html",program_options=programs,resolution=resolution,report_options=report_options,\
+                           employees=employees,severity=severity,\
                             areas=areas,status=status,priority=priority)
 
 
@@ -229,7 +229,7 @@ def result_bug():
     db=get_db()
     query = "SELECT * FROM bugs WHERE "
     if program != 'ALL':
-        query += f"problem_summary = '{program}' AND "
+        query += f"program_options = '{program}' AND "
     # if report_type != 'ALL':
     #     query += f"report_type = '{report_type}' AND "
     # if severity != 'ALL':
@@ -260,9 +260,10 @@ def search_bug():
     query = 'select * from bugs'
     cur = db.execute(query)
     data= cur.fetchall()
-    programs =[i[1] for i in data]
+    programs = [row['program_options'] for row in data]
     areas = get_area()
     area = [i for i in areas]
+    entry_date = [i[8] for i in data]
     assigned_to=[i[1] for i in employee]
     reported_by=[i[1] for i in employee]
     status=["open","closed","resolved"]
@@ -272,12 +273,12 @@ def search_bug():
     priority = [1,2,3,4,5,6]
     resolution = ["Pending","Fixed","Irreproducible","Deferred","As designed","Withdrawn by reporter","Need more info",\
                   "Disagree with suggestion","Duplicate"]
-    # return render_template("search_bug.html",programs=programs,report_type=report_type,severity=severity,\
+    return render_template("search_bug.html",programs=programs,report_type=report_type,severity=severity,\
+                           area=area,assigned_to=assigned_to,reported_by=reported_by, entry_date=entry_date, status=status,\
+                            priority=priority,resolution=resolution)
+    # return render_template("search_bug.html",programs=programs, \
     #                        area=area,assigned_to=assigned_to,reported_by=reported_by,status=status,\
-    #                         priority=priority,resolution=resolution)
-    return render_template("search_bug.html",programs=programs, \
-                           area=area,assigned_to=assigned_to,reported_by=reported_by,status=status,\
-                            priority=priority)
+    #                         priority=priority)
 
 
 
