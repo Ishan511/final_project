@@ -22,7 +22,12 @@
         <label for="password">Password</label>&nbsp&nbsp;
         <input id="password" name="password" type="password" class="textbox"/></br></br>
         <label for="user_level">Role</label>&nbsp&nbsp;
-        <input id="user_level" name="user_level" type="number" class="textbox"/></br></br>
+        <!-- <input id="user_level" name="user_level" type="number" class="textbox"/></br></br> -->
+        <select id="user_level" name="user_level" class="textbox">
+            <option value="1">User</option>
+            <option value="2">Employee</option>
+            <option value="3">Admin</option>
+          </select></br></br>
         <input type="submit" class="btn" value="Submit">
     </form>
     {% if condition %}
