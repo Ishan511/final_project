@@ -36,8 +36,8 @@
             <label id="reproducible">Reproducible?</label>
             <select id ="reproducible" name="reproducible">
                 <option style="display:none;"></option>
-                <option value="Yes" {% if "Yes" == data[0][4] %}selected{% endif %}>Yes</option>
-                <option value="No" {% if "No" == data[0][4] %}selected{% endif %}>No</option>
+                <option value="Yes" {% if "Yes" == data.reproducible %}selected{% endif %}>Yes</option>
+                <option value="No" {% if "No" == data.reproducible %}selected{% endif %}>No</option>
             </select>
         </div>
         <div class="form-row" style="margin-top:20px;">
@@ -112,7 +112,7 @@
         </div>
         <div> 
             <label for="resolved_date">Last Updated</label>
-            <input type="date" id="resolved_date" name="resolved_date" value="{{data[0][17]}}">
+            <input type="date" id="resolved_date" name="resolved_date" value="{{data.resolved_date}}">
         </div>
         <br/>
         <!-- <label id="program">Program</label>
@@ -147,7 +147,7 @@
             <select id ="resolved_by" name="resolved_by">
                 <option style="display:none;"></option>
                 {% for option in employees %}
-                <option value="{{option[1]}}" {% if option[1] == data[0][16] %}selected{% endif %}>{{option[1]}}</option>
+                <option value="{{option[1]}}" {% if option[1] == data[0][15] %}selected{% endif %}>{{option[1]}}</option>
                 {% endfor %}
             </select>
 
@@ -162,14 +162,14 @@
             <select id ="tested_by" name="tested_by">
                 <option style="display:none;"></option>
                 {% for option in employees %}
-                <option value="{{option[1]}}" {% if option[1] == data[0][18] %}selected{% endif %}>{{option[1]}}</option>
+                <option value="{{option[1]}}" {% if option[1] == data[0][17] %}selected{% endif %}>{{data[0][17]}}</option>
                 {% endfor %}
             </select>
 
             &nbsp;
 
             <label for="tested_date">Tested Date</label>
-            <input type="date" id="tested_date" name="tested_date" value="{{data[0][19]}}">
+            <input type="date" id="tested_date" name="tested_date" value="{{data[0][18]}}">
             &nbsp;
     
         </div>       
@@ -180,7 +180,7 @@
             <select id ="resolution" name="resolution">
             <option style="display:none;"></option>
             {% for option in resolution %}
-            <option value="{{option}}" {% if option == data[0][13] %}selected{% endif %}>{{option}}</option>
+            <option value="{{option}}" {% if option == data.resolution %}selected{% endif %}>{{data.resolution}}</option>
             {% endfor %}
             </select>
             &nbsp;
@@ -188,7 +188,7 @@
             <select id ="resolution_version" name="resolution_version">
             <option style="display:none;"></option>
             {% for option in resolution %}
-            <option value="{{option}}" {% if option == data[0][14] %}selected{% endif %}>{{option}}</option>
+            <option value="{{option}}" {% if option == data.resolution_version %}selected{% endif %}>{{option}}</option>
             {% endfor %}
         </div>
         <br/>
