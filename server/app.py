@@ -196,20 +196,20 @@ def update_bug(bug_id):
     programs = get_programs()
     employees = get_employees()
     areas = get_area()
-    # report_options = ["Coding Error","Design Issue","Suggestion","Documentation","Hardware","Query"]
-    # severity = ["Minor", "Serious", "Fatal"]
+    report_options = ["Coding Error","Design Issue","Suggestion","Documentation","Hardware","Query"]
+    severity = ["Minor", "Serious", "Fatal"]
     status=["open","closed","resolved"]
     priority = ["1","2","3","4","5","6"]
-    # resolution = ["Pending","Fixed","Irreproducible","Deferred","As designed","Withdrawn by reporter","Need more info",\
-    #               "Disagree with suggestion","Duplicate"]
+    resolution = ["Pending","Fixed","Irreproducible","Deferred","As designed","Withdrawn by reporter","Need more info",\
+                  "Disagree with suggestion","Duplicate"]
     attach_cur = db.execute(f'select * from attach where bug_id={bug_id}')
     attach = attach_cur.fetchall()
-    # return render_template("update_bug.html",bug_id=bug_id,data=data,programs=programs,report_options=report_options,\
-    #                        severity=severity,employees=employees,areas=areas,\
-    #                         status=status,priority=priority,resolution=resolution,attach=attach)
-    return render_template("update_bug.html",bug_id=bug_id,data=data,programs=programs,\
-                           employees=employees,areas=areas,\
-                            status=status,priority=priority, attach=attach)
+    return render_template("update_bug.html",bug_id=bug_id,data=data,programs=programs,report_options=report_options,\
+                           severity=severity,employees=employees,areas=areas,\
+                            status=status,priority=priority,resolution=resolution,attach=attach)
+    # return render_template("update_bug.html",bug_id=bug_id,data=data,programs=programs,\
+    #                        employees=employees,areas=areas,\
+    #                         status=status,priority=priority, attach=attach)
 
 @app.route("/result_bug",methods=["GET","POST"])
 def result_bug():
