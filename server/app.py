@@ -1,4 +1,4 @@
-from flask import Flask,g,request,render_template,session,flash,redirect,url_for,send_file
+from flask import Flask,g,request,render_template,session,make_response,flash,redirect,url_for,send_file
 import xml.etree.ElementTree as ET
 import sqlite3
 from io import BytesIO
@@ -19,7 +19,9 @@ app.config["SECRET_KEY"] = "ThisisSecret!"
 
 ############### DB CONNECTIONS ########################
 def connect_db():
+
     sql = sqlite3.connect(r"C:\Users\030737107\Desktop\Projects\final_project-1\server\db\bughound.db")
+
     sql.row_factory = sqlite3.Row
     return sql
 
@@ -590,26 +592,60 @@ def export_program_xml():
             col_elem = ET.SubElement(row_elem, f'col{i}')
             col_elem.text = str(col)
 
-  
-    tree = ET.ElementTree(root)
-    tree.write('programs.xml', encoding='utf-8')
-    return f'<h1>Downloaded Successfully</h1>'
+    
+    # tree = ET.ElementTree(root)
+    # tree.write('programs.xml', encoding='utf-8')
+    # return f'<h1>Downloaded Successfully</h1>'
+    xml_str = ET.tostring(root, encoding='utf-8')
+
+    # Create a response with the XML data
+    response = make_response(xml_str)
+    response.headers["Content-Type"] = "application/xml"
+    response.headers["Content-Disposition"] = "attachment; filename=programs.xml"
+    return response
 
 
 ###################### Export Employees to ASCII ############################
 
-@app.route("/export_employee_ascii")
-def export_employee_ascii():
+@app.route("/export_employee_xml")
+# def export_employee_ascii():
+#     if "loggedin" not in session:
+#         return render_template("login.html")
+#     db = get_db()
+#     cur = db.execute("select * from employees")
+#     rows = cur.fetchall()
+#     with open('employees_ascii.txt', 'w') as f:
+#         for row in rows:
+#             f.write('\t'.join(str(col) for col in row) + '\n')
+#     return f"<h1>Downloaded Successfully"
+
+def export_employee_xml():
+    # Check if the user is logged in
     if "loggedin" not in session:
         return render_template("login.html")
+
     db = get_db()
     cur = db.execute("select * from employees")
     rows = cur.fetchall()
-    with open('employees_ascii.txt', 'w') as f:
-        for row in rows:
-            f.write('\t'.join(str(col) for col in row) + '\n')
-    return f"<h1>Downloaded Successfully"
 
+    # Create the root element for the XML
+    root = ET.Element('Employees')
+
+    # Populate XML with data from the database
+    for row in rows:
+        employee_elem = ET.SubElement(root, 'Employee')
+        for i, col in enumerate(row.keys()):
+            col_elem = ET.SubElement(employee_elem, col)
+            col_elem.text = str(row[col])
+
+    # Convert the XML tree to a string
+    xml_str = ET.tostring(root, encoding='utf-8')
+
+    # Create a response with the XML data
+    response = make_response(xml_str)
+    response.headers["Content-Type"] = "application/xml"
+    response.headers["Content-Disposition"] = "attachment; filename=employees.xml"
+    return response
 
 
 
