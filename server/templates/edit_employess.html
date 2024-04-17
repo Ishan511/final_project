@@ -4,15 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/database_maintenance.css') }}">
     <title>Edit Employee</title>
 </head>
 <body>
-    <a href="{{url_for('logout')}}">LogOut</a>
+    <!-- <a href="{{url_for('logout')}}">LogOut</a>
     <br/>
     <a href="{{url_for('database_maintenance')}}">Database Maintenance</a>
     <br/>
     <a href="{{url_for('index_page')}}">Home</a>
-    <br/>
+    <br/> -->
+    <div class="header">
+        <div class="navigation">
+            <a href="{{url_for('logout')}}" class="btn header-btn">Logout</a>
+            <a href="{{url_for('database_maintenance')}}" class="btn header-btn">Database Maintenance</a>
+            <a href="{{url_for('index_page')}}" class="btn header-btn">Home</a>
+        </div>
+    </div>
     <!-- <table style="width:25%", border="1">
         {% for item in employees %}    
         <tr>  
@@ -52,7 +60,7 @@
     </form>
     {% endif %}
     {% if condition1%}
-    <h3>Entered Employee details does not exist in db</h3>
+    <h3>Sorry! No such employee exists</h3>
     {% endif %}
 </body>
 </html>

@@ -19,7 +19,7 @@ app.config["SECRET_KEY"] = "ThisisSecret!"
 
 ############### DB CONNECTIONS ########################
 def connect_db():
-    sql = sqlite3.connect('/Users/ishanunnarkar/Desktop/Projects/Bug_Hound-Project-main/server/db/bughound.db')
+    sql = sqlite3.connect(r"C:\Users\030737107\Desktop\Projects\final_project-1\server\db\bughound.db")
     sql.row_factory = sqlite3.Row
     return sql
 
@@ -53,6 +53,7 @@ def index():
         account = cur.fetchall()
         if account:
             ar = ["", "User", "Employee", "Admin"]
+            ar = ["", "User", "Employee", "Admin"]
             session['loggedin'] = True
             session['id'] = account[0]["emp_id"]
             session['username'] = account[0]["username"]
@@ -60,6 +61,7 @@ def index():
             condition = False
             if session['user_level']==3 or session['user_level']==2:
                 condition=True
+            return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"], users = ar)
             return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"], users = ar)
         else:
             return render_template("login.html",msg="True")
@@ -283,6 +285,10 @@ def search_bug():
 ################## DATABASE MAINTENANCE ##########################
 @app.route("/database_maintenance")
 def database_maintenance():
+    # if session['user_level']==3:
+    #             condition=True
+    #         return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"])
+    return render_template("database_maintenance.html", userlevel=session["user_level"])
     # if session['user_level']==3:
     #             condition=True
     #         return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"])
