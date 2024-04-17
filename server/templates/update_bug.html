@@ -32,6 +32,14 @@
             </select>
             <!-- UPDATED PROGRAM -->
         </div>
+        <div class="form-row">
+            <label id="reproducible">Reproducible?</label>
+            <select id ="reproducible" name="reproducible">
+                <option style="display:none;"></option>
+                <option value="Yes" {% if "Yes" == data[0][4] %}selected{% endif %}>Yes</option>
+                <option value="No" {% if "No" == data[0][4] %}selected{% endif %}>No</option>
+            </select>
+        </div>
         <div class="form-row" style="margin-top:20px;">
             <label style="vertical-align:top" for=problem>Description</label>
             &nbsp;
@@ -131,11 +139,7 @@
         <!-- UPDATED COMMENTS -->
        
         <br/>
-
-       
-
-        <br/>
-<!--         
+        
         <div class="form-row">
 
        
@@ -149,9 +153,9 @@
 
             &nbsp;
             
-            <label for="resolved_date">Last Updated</label>
+            <!-- <label for="resolved_date">Last Updated</label>
             <input type="date" id="resolved_date" name="resolved_date" value="{{data[0][17]}}">
-            
+             -->
             &nbsp;
             
             <label id="tested_by">Tested by</label>
@@ -164,13 +168,32 @@
 
             &nbsp;
 
-            <label for="tested_date">Date</label>
+            <label for="tested_date">Tested Date</label>
             <input type="date" id="tested_date" name="tested_date" value="{{data[0][19]}}">
             &nbsp;
     
         </div>       
-        <hr/> -->
+        <br/>
 
+        <div class="form-row">
+            <label id="resolution">Resolution</label>
+            <select id ="resolution" name="resolution">
+            <option style="display:none;"></option>
+            {% for option in resolution %}
+            <option value="{{option}}" {% if option == data[0][13] %}selected{% endif %}>{{option}}</option>
+            {% endfor %}
+            </select>
+            &nbsp;
+            <label id="resolution_version">Resolution Version</label>
+            <select id ="resolution_version" name="resolution_version">
+            <option style="display:none;"></option>
+            {% for option in resolution %}
+            <option value="{{option}}" {% if option == data[0][14] %}selected{% endif %}>{{option}}</option>
+            {% endfor %}
+        </div>
+        <br/>
+        <br/>
+        <br/>
         <div class="button-row">
             <input type="submit" class="btn" value="Submit">
             <input type="reset" class="btn" value="Reset">
