@@ -23,17 +23,27 @@
     </div>
 <!-- Header section ends -->
     <div class="styled-container">
-        <table style="width:25%", border="1">
-        {% for program in programs %}
-        <tr>
-            <td><a href="{{url_for('add_update_area_program',prog_id=program[0], condition1=False)}}" method="GET">{{program[0] }}</a></td>
-        <!-- <td>{{program[0]}}</td> -->
-            <td>{{program[1]}}</td>
-            <td>{{program[2]}}</td>
-            <td>{{program[3]}}</td>
-        {% endfor %}
-        </tr>
+        <table style="width:25%" border="1">
+            <thead>
+                <tr>
+                    <th>Area ID</th>
+                    <th>Program</th>
+                    <th>Release</th>
+                    <th>Version</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for program in programs %}
+                <tr>
+                    <td><a href="{{ url_for('add_update_area_program', prog_id=program[0], condition1=False) }}">{{ program[0] }}</a></td>
+                    <td>{{ program[1] }}</td>
+                    <td>{{ program[2] }}</td>
+                    <td>{{ program[3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
+        
     </div>
 </body>
 </html>

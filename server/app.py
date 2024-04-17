@@ -20,8 +20,7 @@ app.config["SECRET_KEY"] = "ThisisSecret!"
 ############### DB CONNECTIONS ########################
 def connect_db():
 
-    sql = sqlite3.connect("/Users/ishanunnarkar/Desktop/Projects/Bug_Hound-Project-main/server/db/bughound.db")
-
+    sql = sqlite3.connect(r"C:\Users\030737107\Desktop\Projects\final_project-1\server\db\bughound.db")
 
     sql.row_factory = sqlite3.Row
     return sql
@@ -554,8 +553,9 @@ def add_area():
     if "loggedin" not in session:
         return render_template("login.html")
     programs = get_programs()
-    if not programs:
-        return render_template("no_programs.html")
+    
+
+    
     if request.method == "GET":
         return render_template('add_area.html',programs=programs)
     # inp = request.get_json()

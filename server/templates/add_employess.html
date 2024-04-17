@@ -25,7 +25,7 @@
     <form action="{{url_for('add_employee')}}" method="POST">
         </br><label for="name">Name</label>&nbsp&nbsp;
         <input name="name" type="text" class="textbox"/></br></br>
-        <label for="user_name">Email</label>&nbsp&nbsp;
+        <label for="user_name">Username</label>&nbsp&nbsp;
         <input id="user_name" name="user_name" type="text" class="textbox"/></br></br>
         <label for="password">Password</label>&nbsp&nbsp;
         <input id="password" name="password" type="password" class="textbox"/></br></br>
@@ -39,7 +39,7 @@
         <input type="submit" class="btn" value="Submit">
     </form>
     {% if condition %}
-    <h3>Employee {{name}}  has been added successfully </h3>
+    <h3>Employee {{name}}  has been added successfully!</h3>
     {% endif %}
     {% if condition1 %}
     <h3>Fill all details</h3>
