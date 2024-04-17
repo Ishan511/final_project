@@ -45,19 +45,7 @@
                 {% endfor %}
             </select>
         </div>
-        <!-- <div class="second_row">
-            <label id="program">Program</label>
-        <select id ="program" name="program_options">
-            <option style="display:none;"></option>
-            {% for option in program_options %}
-            <option value="{{'-'.join(option[1:])}}">{{'-'.join(option[1:])}}</option>
-            {% endfor %}
-        </select>
-        &nbsp;
-        
-        
-        </div> -->
-        <!-- <br/> -->
+
         <div class="form-row" >
             <label id="reproducible">Reproducible?</label>
             <select id ="reproducible" name="reproducible">
@@ -147,28 +135,12 @@
         </div>
         <br/>
         <div class="form-row">
-            <!-- <label id="resolved_by">Resolved by</label>
-            <select id ="resolved_by" name="resolved_by">
-            <option style="display:none;"></option>
-            {% for option in employees %}
-            <option value="{{option[1]}}">{{option[1]}}</option>
-            {% endfor %}
-            </select> -->
+
             &nbsp;
             <label for="resolved_date">Last Updated</label>
             <input type="date" id="resolved_date" name="resolved_date">
             &nbsp;
-            <!-- <label id="tested_by">Tested by</label>
-            <select id ="tested_by" name="tested_by">
-            <option style="display:none;"></option>
-            {% for option in employees %}
-            <option value="{{option[1]}}">{{option[1]}}</option>
-            {% endfor %}
-            </select>
-            &nbsp; -->
-            <!-- <label for="tested_date">Date</label>
-            <input type="date" id="tested_date" name="tested_date">
-            &nbsp; -->
+
             </select>
         </div>       
         <hr/>
