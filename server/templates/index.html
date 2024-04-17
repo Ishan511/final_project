@@ -17,11 +17,11 @@
             <div class="buttons">
                 <a href="{{url_for('add_bug')}}" class="btn">Add Bug</a>
                 <a href="{{url_for('search_bug')}}" class="btn">Update Bug</a>
-            </div><br/>
+            </div><br/><br/>
             {% if condition %}
             <div class="database-btn">
                 <a href="{{url_for('database_maintenance')}}" class="btn database">Database Maintenance</a>
-            </div><br/>
+            </div><br/><br/>
             {% endif %}
             <div class="logout-btn">
                 <a href="{{url_for('logout')}}" class="btn logout">Logout</a>
