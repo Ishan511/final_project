@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/database_maintenance.css') }}">
     <title>Edit Employee</title>
 </head>
 <body>
-    <a href="{{url_for('logout')}}">LogOut</a>
+    <div class="header">
+        <div class="navigation">
+            <a href="{{url_for('logout')}}" class="btn header-btn">Logout</a>
+            <a href="{{url_for('database_maintenance')}}" class="btn header-btn">Database Maintenance</a>
+            <a href="{{url_for('index_page')}}" class="btn header-btn">Home</a>
+        </div>
+    </div>
     <!-- <table style="width:25%", border="1">
         <tr>
             <th>Emp ID</th>
@@ -51,12 +58,15 @@
         <td>{{data[0][1]}}</td>
         <td>{{data[0][2]}}</td>
         <td>{{data[0][4]}}</td>
-        <td><button><a style="text-decoration:None;width:25px" href="{{url_for('delete_employee_id',emp_id=data[0][0])}}">Delete Employee</a></button></td>
+        <td>
+            <a href="{{url_for('delete_employee_id', emp_id=data[0][0])}}" style="display:inline-block; padding:8px 16px; background-color:red; color:white; text-align:center; text-decoration:none; font-size:16px; border:none; border-radius:4px; cursor:pointer;">Delete Employee</a>
+        </td>
+        
         </tr>
         </table>
     {% endif %}
     {% if condition1%}
-    <h3>Entered Employee details does not exist in db</h3>
+    <h3>Sorry! No such program exists</h3>
     {% endif %}
 </body>
 </html>
