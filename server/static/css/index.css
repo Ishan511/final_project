@@ -2,7 +2,7 @@ body {
     background-color: #f0f0f0; /* Light grey background */
     font-family: Arial, sans-serif; /* Improve font readability */
     margin: 0;
-    padding-top: 140px; /* Space for the fixed header */
+    padding-top: 75px; /* Space for the fixed header */
     display: flex;
     flex-direction: column; /* Stack content vertically */
     align-items: center; /* Center content horizontally */
