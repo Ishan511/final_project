@@ -39,8 +39,7 @@
         {% endfor %}    
     </table>
 </div>
-    <h1> Delete Program</h1>
-    <h3> Enter program to delete</h3>
+    <h3> Search program to be deleted:</h3>
     <form method="POST",action="{{url_for('delete_program')}}">
     <select name="options">
     <option value="{{options[0]}}" selected>{{options[0]}}</option>
