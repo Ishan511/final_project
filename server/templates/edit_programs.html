@@ -35,8 +35,7 @@
             {% endfor %}    
         </table>
     </div>
-    <h1> Edit Program</h1>
-    <h2> Search Program</h2>
+    <h2> Search Program to be edited:</h2>
     <form method="POST",action="{{url_for('update_program')}}">
     <select name="options">
     <option value="{{options[0]}}" selected>{{options[0]}}</option>

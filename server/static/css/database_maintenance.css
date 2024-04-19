@@ -153,9 +153,11 @@ label {
     width: 100%;
     max-width: 800px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     gap: 10px; /* Adds space between each link */
+
+    
 }
 
 /* Style links within main-content to look like buttons */
