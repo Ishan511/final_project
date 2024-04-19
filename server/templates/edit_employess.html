@@ -31,8 +31,7 @@
         </tr>
         {% endfor %}    
     </table> -->
-    <h1> Edit Employee</h1>
-    <h3> Search Employee</h3>
+    <h3> Search Employee to be edited:</h3>
     <form method="POST",action="{{url_for('update_employee')}}">
     <select name="options">
     <option value="{{options[0]}}" selected>{{options[0]}}</option>

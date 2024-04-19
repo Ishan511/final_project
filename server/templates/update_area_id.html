@@ -8,13 +8,15 @@
     <title>Add/Update Areas</title>
 </head>
 <body>
-    <a href="{{url_for('logout')}}">LogOut</a>
-    <br/>
-    <a href="{{url_for('database_maintenance')}}">Database Maintenance</a>
-    <br/>
-    <a href="{{url_for('index_page')}}">Home</a>
+    <div class="header">
+        <div class="navigation">
+            <a href="{{url_for('logout')}}" class="btn header-btn">Logout</a>
+            <a href="{{url_for('database_maintenance')}}" class="btn header-btn">Database Maintenance</a>
+            <a href="{{url_for('index_page')}}" class="btn header-btn">Home</a>
+        </div>
+    </div>
     <table style="width:25%", border="1">
-    <h1>Add/Edit areas to {{name}} </h1>
+    <h1>Modify areas for {{name}} </h1>
     <tr>
         <th>Area ID</th>
         <th>Program ID</th>
@@ -43,7 +45,7 @@
     </tr>
     </table>
     {% if condition1 %}
-    <h3>Fill all details</h3>
+    <h3>Please enter all details!</h3>
     {% endif %}
 </body>
 </html>
