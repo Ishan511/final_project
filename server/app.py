@@ -2,22 +2,14 @@ from flask import Flask,g,request,render_template,session,make_response,flash,re
 import xml.etree.ElementTree as ET
 import sqlite3
 from io import BytesIO
-# import socket
+from tabulate import tabulate
+
 
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "ThisisSecret!"
 
 
-# def get_free_port():
-#     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#     s.bind(('localhost', 0))
-#     _, port = s.getsockname()
-#     s.close()
-#     return port
-
-
-############### DB CONNECTIONS ########################
 def connect_db():
 
     sql = sqlite3.connect("/Users/ishanunnarkar/Desktop/Projects/Bug_Hound-Project-main/server/db/bughound.db")
@@ -35,7 +27,7 @@ def close_db(error):
     if hasattr(g,'sqlite_db'):
         g.sqlite_db.close()
 
-################## INDEX, LOGIN, LOGOUT #####################
+
 @app.route("/index_page",methods=["GET"])
 def index_page():
     if "loggedin" in session:
@@ -77,7 +69,7 @@ def logout():
         flash("You must be logged in first")
     return render_template("login.html")
 
-########### HELPER FUNCTIONS #########################
+
 def get_programs():
     db=get_db()
     cur = db.execute('select * from programs')
@@ -135,7 +127,7 @@ def add_bug():
 
         
     
-    #entry_date = datetime.datetime.now().strftime("%m/%d/%Y")
+
     return render_template("add_bug.html",program_options=programs,resolution=resolution,report_options=report_options,\
                            employees=employees,severity=severity,\
                             areas=areas,status=status,priority=priority)
@@ -211,31 +203,22 @@ def update_bug(bug_id):
     return render_template("update_bug.html",bug_id=bug_id,data=data,programs=programs,report_options=report_options,\
                            severity=severity,employees=employees,areas=areas,\
                             status=status,priority=priority,resolution=resolution,attach=attach)
-    # return render_template("update_bug.html",bug_id=bug_id,data=data,programs=programs,\
-    #                        employees=employees,areas=areas,\
-    #                         status=status,priority=priority, attach=attach)
+    
 
 @app.route("/result_bug",methods=["GET","POST"])
 def result_bug():
     if "loggedin" not in session:
         return render_template("login.html")
     program = request.form['program_options']
-    # report_type = request.form['report_options']
-    # severity = request.form['severity']
     areas = request.form['areas']
     assigned_to = request.form['assigned_to']
     reported_by = request.form['reported_by']
     status = request.form['status']
     priority = request.form['priority']
-    # resolution = request.form['resolution']
     db=get_db()
     query = "SELECT * FROM bugs WHERE "
     if program != 'ALL':
         query += f"program_options = '{program}' AND "
-    # if report_type != 'ALL':
-    #     query += f"report_type = '{report_type}' AND "
-    # if severity != 'ALL':
-    #     query += f"severity = '{severity}' AND "
     if areas != 'ALL':
         query += f"areas = '{areas}' AND "
     if assigned_to != 'ALL':
@@ -246,8 +229,6 @@ def result_bug():
         query += f"status = '{status}' AND "
     if priority != 'ALL':
         query += f"priority = '{priority}' AND "
-    # if resolution != 'ALL':
-    #     query += f"resolution = '{resolution}' AND "
     query = query[:-5]
     results = db.execute(query)
     data = results.fetchall()
@@ -278,27 +259,13 @@ def search_bug():
     return render_template("search_bug.html",programs=programs,report_type=report_type,severity=severity,\
                            area=area,assigned_to=assigned_to,reported_by=reported_by, entry_date=entry_date, status=status,\
                             priority=priority,resolution=resolution)
-    # return render_template("search_bug.html",programs=programs, \
-    #                        area=area,assigned_to=assigned_to,reported_by=reported_by,status=status,\
-    #                         priority=priority)
+ 
 
 
-
-################## DATABASE MAINTENANCE ##########################
 @app.route("/database_maintenance")
 def database_maintenance():
-    # if session['user_level']==3:
-    #             condition=True
-    #         return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"])
-    return render_template("database_maintenance.html", userlevel=session["user_level"])
-    # if session['user_level']==3:
-    #             condition=True
-    #         return render_template('index.html',condition=condition,name=session["username"],userlevel=session["user_level"])
     return render_template("database_maintenance.html", userlevel=session["user_level"])
 
-######################## EMPLOYEE #######################
-#Employee Functions
-#add employee
 @app.route("/add_employee",methods=["GET","POST"])
 def add_employee():
     if "loggedin" not in session:
@@ -337,7 +304,7 @@ def process_update_employee():
     db.commit()
     return redirect(url_for("update_employee"))
 
-#Update Employee
+
 @app.route("/update_employee",methods=["GET","POST"])
 def update_employee():
     if "loggedin" not in session:
@@ -369,7 +336,7 @@ def delete_employee_id(emp_id):
     db.commit()
     return redirect(url_for("delete_employee"))
 
-#delete Employee
+
 @app.route("/delete_employee",methods=["GET","POST"])
 def delete_employee():
     if "loggedin" not in session:
@@ -390,17 +357,8 @@ def delete_employee():
                     condition="True",data=data,employees=employees)
     else:
         return render_template("delete_employess.html",employees=employees,options=options,condition1="False")
-    # inp = request.get_json()
-    # emp_id = inp["emp_id"]
-    # 
-
-    # return "employee deletd successfully"
-
-###########Programs############
 
 
-
-#add programs
 @app.route("/add_program",methods=["GET","POST"])
 def add_program():
     if "loggedin" not in session:
@@ -440,7 +398,6 @@ def process_update_program():
     
 
 
-#Update Program
 @app.route("/update_program",methods=["GET","POST"])
 def update_program():
     if "loggedin" not in session:
@@ -472,7 +429,7 @@ def delete_program_id(prog_id):
     db.commit()
     return redirect(url_for("delete_program"))
 
-#delete programs
+
 @app.route("/delete_program",methods=["GET","POST"])
 def delete_program():
     if "loggedin" not in session:
@@ -493,14 +450,8 @@ def delete_program():
                     condition="True",data=data,programs=programs,name=str(data[0][1]))
     else:
         return render_template("delete_programs.html",programs=programs,options=options,condition1="False")
-    # inp = request.get_json()
-    # prog_id = inp["prog_id"]
-    # db=get_db()
-    # db.execute('delete from programs where prog_id={0}'.format(prog_id))
-    # db.commit()
 
-  
-############AREAS#################
+
 @app.route("/update_area_program/<area_id>/<prog_id>",methods=["POST"])
 def update_area_program(area_id,prog_id):
     if "loggedin" not in session:
@@ -528,7 +479,6 @@ def add_area_program(prog_id):
 
     
 
-# @app.route("/add_update_area_program/<prog_id>/<condition1>",methods=["GET"])
 @app.route("/add_update_area_program/<prog_id>/", defaults={'condition1': 'false'})
 @app.route("/add_update_area_program/<prog_id>/<condition1>", methods=["GET"])
 def add_update_area_program(prog_id,condition1=False):
@@ -547,24 +497,18 @@ def add_update_area_program(prog_id,condition1=False):
         return render_template("update_area_id.html",data=data,prog_id=prog_id,name=program_name,condition1=condition1)
     
 
-#add areas
 @app.route("/add_area",methods=["GET","POST"])
 def add_area():
     if "loggedin" not in session:
         return render_template("login.html")
     programs = get_programs()
+    if not programs:
+        return render_template("no_programs.html")
     
 
     
     if request.method == "GET":
         return render_template('add_area.html',programs=programs)
-    # inp = request.get_json()
-    # prog_id = inp["prog_id"]
-    # area = inp["area"]
-    # db=get_db()
-    # db.execute('insert into areas (prog_id,area) values(?,?)',[prog_id,area] )
-    # db.commit()
-    # return inp
 
 @app.route("/delete_area/<area_id>/<prog_id>",methods=["GET","POST"])
 def delete_area(area_id,prog_id):
@@ -576,7 +520,7 @@ def delete_area(area_id,prog_id):
     return redirect(url_for("add_update_area_program",prog_id=prog_id))
 
 
-######## Export Program table to XML #######################
+
 @app.route("/export_program_xml",methods=["GET"])
 def export_program_xml():
     if "loggedin" not in session:
@@ -593,34 +537,21 @@ def export_program_xml():
             col_elem.text = str(col)
 
     
-    # tree = ET.ElementTree(root)
-    # tree.write('programs.xml', encoding='utf-8')
-    # return f'<h1>Downloaded Successfully</h1>'
+
     xml_str = ET.tostring(root, encoding='utf-8')
 
-    # Create a response with the XML data
+
     response = make_response(xml_str)
     response.headers["Content-Type"] = "application/xml"
     response.headers["Content-Disposition"] = "attachment; filename=programs.xml"
     return response
 
 
-###################### Export Employees to ASCII ############################
 
 @app.route("/export_employee_xml")
-# def export_employee_ascii():
-#     if "loggedin" not in session:
-#         return render_template("login.html")
-#     db = get_db()
-#     cur = db.execute("select * from employees")
-#     rows = cur.fetchall()
-#     with open('employees_ascii.txt', 'w') as f:
-#         for row in rows:
-#             f.write('\t'.join(str(col) for col in row) + '\n')
-#     return f"<h1>Downloaded Successfully"
+
 
 def export_employee_xml():
-    # Check if the user is logged in
     if "loggedin" not in session:
         return render_template("login.html")
 
@@ -628,28 +559,43 @@ def export_employee_xml():
     cur = db.execute("select * from employees")
     rows = cur.fetchall()
 
-    # Create the root element for the XML
     root = ET.Element('Employees')
 
-    # Populate XML with data from the database
+
     for row in rows:
         employee_elem = ET.SubElement(root, 'Employee')
         for i, col in enumerate(row.keys()):
             col_elem = ET.SubElement(employee_elem, col)
             col_elem.text = str(row[col])
 
-    # Convert the XML tree to a string
+
     xml_str = ET.tostring(root, encoding='utf-8')
 
-    # Create a response with the XML data
     response = make_response(xml_str)
     response.headers["Content-Type"] = "application/xml"
     response.headers["Content-Disposition"] = "attachment; filename=employees.xml"
     return response
 
-
+@app.route('/export_employee_ascii')
+def export_employee_ascii():
+    if "loggedin" not in session:
+        return render_template("login.html")
+    
+    db = get_db()
+    cur = db.execute("select * from employees")
+    rows = cur.fetchall()
+    # Assuming 'rows' is a list of dicts
+    if rows:
+        headers = rows[0].keys()
+        ascii_table = tabulate(rows, headers=headers, tablefmt="grid")
+    else:
+        ascii_table = "No data available"
+    
+    response = make_response(ascii_table)
+    response.headers["Content-Type"] = "text/plain"
+    response.headers["Content-Disposition"] = "attachment; filename=employees.txt"
+    return response
 
 if __name__ == "__main__":
-    # port = get_free_port()
     app.run(host="localhost", port=8000, debug=True)
 
