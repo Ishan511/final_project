@@ -12,7 +12,7 @@ app.config["SECRET_KEY"] = "ThisisSecret!"
 
 def connect_db():
 
-    sql = sqlite3.connect(r"C:\Users\030737107\Desktop\Projects\final_project-1\server\db\bughound.db")
+    sql = sqlite3.connect("/Users/ishanunnarkar/Desktop/Projects/Bug_Hound-Project-main/server/db/bughound.db")
 
     sql.row_factory = sqlite3.Row
     return sql
@@ -142,8 +142,15 @@ def view_attachment():
         db = get_db()
         cur = db.execute(f"select * from attach where attach_id={option}")
         data=cur.fetchall()
-            
-        return send_file(BytesIO(data[0][3]), download_name=data[0][2], as_attachment=True)
+        if data and len(data[0]) > 3 and data[0][3]:
+            file_stream = BytesIO(data[0][3])
+            return send_file(
+                file_stream,
+                download_name=data[0][2],
+                as_attachment=False  
+            )
+        else:
+            return "File not found or invalid data", 404    
     
 
 @app.route("/upload_attachment/<bug_id>",methods=["GET","POST"])
@@ -206,33 +213,70 @@ def update_bug(bug_id):
     
 
 @app.route("/result_bug",methods=["GET","POST"])
+# def result_bug():
+#     if "loggedin" not in session:
+#         return render_template("login.html")
+#     program = request.form['program_options']
+#     areas = request.form['areas']
+#     assigned_to = request.form['assigned_to']
+#     reported_by = request.form['reported_by']
+#     status = request.form['status']
+#     priority = request.form['priority']
+#     db=get_db()
+#     query = "SELECT * FROM bugs WHERE "
+#     if program != 'ALL':
+#         query += f"program_options = '{program}' AND "
+#     if areas != 'ALL':
+#         query += f"areas = '{areas}' AND "
+#     if assigned_to != 'ALL':
+#         query += f"assigned_to = '{assigned_to}' AND "
+#     if reported_by != 'ALL': 
+#         query += f"reported_by = '{reported_by}' AND "
+#     if status != 'ALL':
+#         query += f"status = '{status}' AND "
+#     if priority != 'ALL':
+#         query += f"priority = '{priority}' AND "
+#     query = query[:-5]
+#     results = db.execute(query)
+#     data = results.fetchall()
+#     return render_template("result_bug.html",data=data)
 def result_bug():
     if "loggedin" not in session:
         return render_template("login.html")
     program = request.form['program_options']
+    report_type = request.form['report_options']
+    severity = request.form['severity']
     areas = request.form['areas']
     assigned_to = request.form['assigned_to']
     reported_by = request.form['reported_by']
     status = request.form['status']
     priority = request.form['priority']
+    resolution = request.form['resolution']
     db=get_db()
     query = "SELECT * FROM bugs WHERE "
     if program != 'ALL':
         query += f"program_options = '{program}' AND "
+    if report_type != 'ALL':
+        query += f"report_type = '{report_type}' AND "
+    if severity != 'ALL':
+        query += f"severity = '{severity}' AND "
     if areas != 'ALL':
-        query += f"areas = '{areas}' AND "
+        query += f"functional_area = '{areas}' AND "
     if assigned_to != 'ALL':
         query += f"assigned_to = '{assigned_to}' AND "
-    if reported_by != 'ALL': 
+    if reported_by != 'ALL':
         query += f"reported_by = '{reported_by}' AND "
     if status != 'ALL':
         query += f"status = '{status}' AND "
     if priority != 'ALL':
         query += f"priority = '{priority}' AND "
+    if resolution != 'ALL':
+        query += f"resolution = '{resolution}' AND "
     query = query[:-5]
     results = db.execute(query)
     data = results.fetchall()
     return render_template("result_bug.html",data=data)
+
 
 @app.route("/search_bug",methods=["GET","POST"])
 def search_bug():
@@ -546,6 +590,32 @@ def export_program_xml():
     response.headers["Content-Disposition"] = "attachment; filename=programs.xml"
     return response
 
+@app.route("/export_area_xml",methods=["GET"])
+def export_area_xml():
+    if "loggedin" not in session:
+        return render_template("login.html")
+    db = get_db()
+    cur = db.execute("select * from areas")
+    rows = cur.fetchall()
+    root = ET.Element('my_table')
+
+    for row in rows:
+        row_elem = ET.SubElement(root, 'row')
+        for i, col in enumerate(row):
+            col_elem = ET.SubElement(row_elem, f'col{i}')
+            col_elem.text = str(col)
+
+    
+
+    xml_str = ET.tostring(root, encoding='utf-8')
+
+
+    response = make_response(xml_str)
+    response.headers["Content-Type"] = "application/xml"
+    response.headers["Content-Disposition"] = "attachment; filename=areas.xml"
+    return response
+
+
 
 
 @app.route("/export_employee_xml")
@@ -556,7 +626,7 @@ def export_employee_xml():
         return render_template("login.html")
 
     db = get_db()
-    cur = db.execute("select * from employees")
+    cur = db.execute("select emp_id, name, username, userlevel from employees")
     rows = cur.fetchall()
 
     root = ET.Element('Employees')
@@ -577,21 +647,40 @@ def export_employee_xml():
     return response
 
 @app.route('/export_employee_ascii')
+# def export_employee_ascii():
+#     if "loggedin" not in session:
+#         return render_template("login.html")
+    
+#     db = get_db()
+#     cur = db.execute("select emp_id, name, username, userlevel from employees")
+#     rows = cur.fetchall()
+#     # Assuming 'rows' is a list of dicts
+#     if rows:
+#         headers = rows[0].keys()
+#         ascii_table = tabulate(rows, headers=headers, tablefmt="grid")
+#     else:
+#         ascii_table = "No data available"
+    
+#     response = make_response(ascii_table)
+#     response.headers["Content-Type"] = "text/plain"
+#     response.headers["Content-Disposition"] = "attachment; filename=employees.txt"
+#     return response
+
 def export_employee_ascii():
     if "loggedin" not in session:
         return render_template("login.html")
-    
+
     db = get_db()
-    cur = db.execute("select * from employees")
+    cur = db.execute("select emp_id, name, username, userlevel from employees")  # Fetching specific columns
     rows = cur.fetchall()
-    # Assuming 'rows' is a list of dicts
+
     if rows:
-        headers = rows[0].keys()
-        ascii_table = tabulate(rows, headers=headers, tablefmt="grid")
+        # Construct the ASCII data, join each row's columns by tabs
+        ascii_data = "\n".join("\t".join(str(col) for col in row) for row in rows)
     else:
-        ascii_table = "No data available"
-    
-    response = make_response(ascii_table)
+        ascii_data = "No data available"
+
+    response = make_response(ascii_data)
     response.headers["Content-Type"] = "text/plain"
     response.headers["Content-Disposition"] = "attachment; filename=employees.txt"
     return response

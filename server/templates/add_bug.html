@@ -18,9 +18,9 @@
     <div>
     <form method="POST" action="{{url_for('add_bug')}}">
         <div class="form-row">
-            <label for="problem_summary">Title</label>
+            <label for="problem_summary">Problem Summary</label>
             <input type="text" id="problem_summary" name="problem_summary">
-
+            &nbsp;
             <label id="program">Program</label>
         <select id ="program" name="program_options">
             <option style="display:none;"></option>
@@ -56,7 +56,7 @@
         </div> 
 
         <div class="form-row" style="margin-top:20px;">
-            <label style="vertical-align:top" for=problem>Description</label>
+            <label style="vertical-align:top" for=problem>Problem</label>
             &nbsp;
             <textarea name="problem" id="problem" cols="90" rows="3"></textarea>
         </div>
@@ -153,7 +153,7 @@
     </form>
 </div>
     {% if condition %}
-    <h3>Fill Atleast Program Details</h3>
+    <h3>Incomplete Details</h3>
     {% endif %}
 </body>
 </html>

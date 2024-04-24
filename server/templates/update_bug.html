@@ -18,7 +18,7 @@
     
     <form method="POST" action="{{url_for('update_bug',bug_id=bug_id)}}">
         <div class="form-row">
-            <label for="problem_summary">Title</label>
+            <label for="problem_summary">Problem Summary</label>
             <input type="text" id="problem_summary" name="problem_summary" value="{{ data.problem_summary }}">
             &nbsp;
             &nbsp;
@@ -41,7 +41,7 @@
             </select>
         </div>
         <div class="form-row" style="margin-top:20px;">
-            <label style="vertical-align:top" for=problem>Description</label>
+            <label style="vertical-align:top" for=problem>Problem</label>
             &nbsp;
             <textarea name="problem" id="problem" cols="90" rows="3" >{{ data.problem }}</textarea>
         </div>
@@ -202,7 +202,7 @@
         </div>
     </form>
  
-    <form action="{{url_for('view_attachment')}}" method="post" style="margin: 0%;">
+    <!-- <form action="{{url_for('view_attachment')}}" method="post" style="margin: 0%;">
         <label for="options"><b>Attachment</b></label>
         &nbsp;
         <select name="options">
@@ -213,11 +213,99 @@
         </select>
         <input type="submit" class="btn" value ="Submit">
     </form>
+    <hr/> -->
+    <!-- <form action="{{ url_for('view_attachment') }}" method="post" target="_blank" style="margin: 0%;">
+        <label for="options"><b>Attachment</b></label>
+        &nbsp;
+        <select name="options">
+            <option value="None" selected>None</option>
+            {% for option in attach %}
+                <option value="{{option[0]}}">{{option[2]}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" class="btn" value="Submit">
+    </form>
     <hr/>
     <form action = "{{url_for('upload_attachment',bug_id=bug_id)}}" method = "post" enctype="multipart/form-data" >  
         <input type="file" name="file" />  
         <input type = "submit" class="btn" value="Submit">  
     </form>  
+     -->
+
+     <form id="combinedForm" method="post" enctype="multipart/form-data" target="_blank" style="margin: 0%;">
+
+        <!-- First Line: File Upload -->
+        <div class="form-row">
+            <label for="upload-section"><b>Upload Attachment:</b></label>
+            <input type="file" name="file" id="file" class="inputfile" />
+            <label for="file">Choose a file</label>
+            <input type="button" class="btn" value="Upload File" onclick="submitForm('upload')">
+        </div>
+        
+        <!-- Second Line: View Attachment -->
+        <div class="form-row">
+            <label for="options"><b>View Attachment</b></label>
+            <select name="options" id="options">
+                <option value="None" selected>None</option>
+                {% for option in attach %}
+                    <option value="{{option[0]}}">{{option[2]}}</option>
+                {% endfor %}
+            </select>
+            <input type="button" class="btn" value="View Attachment" onclick="submitForm('view')">
+        </div>
+        
+    </form>
+    <hr/>
+    
+    <style>
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .inputfile {
+            display: none;
+        }
+        
+        .inputfile + label {
+            cursor: pointer;
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+        }
+        
+        .inputfile + label:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .btn {
+            margin-left: 10px;
+            padding: 5px 15px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    
+    <script>
+        function submitForm(actionType) {
+            var form = document.getElementById('combinedForm');
+            if (actionType === 'view') {
+                form.action = "{{ url_for('view_attachment') }}";
+                form.target = "_blank";
+            } else if (actionType === 'upload') {
+                form.action = "{{ url_for('upload_attachment', bug_id=bug_id) }}";
+                form.target = "_self";
+            }
+            form.submit();
+        }
+    </script>
+    
     
 </body>
 </html>

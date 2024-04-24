@@ -16,32 +16,15 @@
         </div>
     </div>
 
-<<<<<<< HEAD
-    <!-- Main content starts -->
-    <div class="main-content">
-        {% if userlevel == 3 %}
-            <a href="{{url_for('add_area')}}"><h2>Add/Edit/Delete Areas</h2></a>
-            <a href="{{url_for('add_program')}}"><h2>Add Program</h2></a>
-            <a href="{{url_for('update_program')}}"><h2>Edit Program</h2></a>
-            <a href="{{url_for('delete_program')}}"><h2>Delete Program</h2></a>
-            <a href="{{url_for('export_program_xml')}}"><h2>Export Programs</h2></a>
-            <a href="{{url_for('add_employee')}}"><h2>Add Employee</h2></a>
-            <a href="{{url_for('update_employee')}}"><h2>Edit Employee</h2></a>
-            <a href="{{url_for('delete_employee')}}"><h2>Delete Employee</h2></a>
-            <a href="{{url_for('export_employee_ascii')}}"><h2>Export Employees</h2></a>
-        {% endif %}
-        {% if userlevel == 2 %}
-            <a href="{{url_for('add_program')}}"><h2>Add Program</h2></a>
-            <a href="{{url_for('update_program')}}"><h2>Edit Program</h2></a>
-        {% endif %}
-=======
+
     <div class="main-content" style="display: flex; justify-content: space-evenly;">
         <div style="flex: 1; text-align: center;">
             <h2>Areas</h2>
             {% if userlevel >= 2 %}
                 <a href="{{ url_for('add_area') }}">Modify</a>
+                <a href="{{ url_for('export_area_xml') }}">Export</a>
             {% endif %}
->>>>>>> origin/main
+
         </div>
         <div style="flex: 1; text-align: center;">
             <h2>Programs</h2>
@@ -60,7 +43,7 @@
                 <a href="{{ url_for('add_employee') }}">Add</a>
                 <a href="{{ url_for('update_employee') }}">Edit</a>
                 <a href="{{ url_for('delete_employee') }}">Delete</a>
-                <a href="{{ url_for('export_employee_xml') }}">Export</a>
+                <a href="{{ url_for('export_employee_ascii') }}">Export</a>
             {% endif %}
         </div>
     </div>

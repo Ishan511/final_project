@@ -19,13 +19,13 @@
         <table style="width:100%", border="1">
         <tr>
             <th>Bug ID</th>
-            <th>Title</th>
-            <th>Summary</th>
+            <th>Program</th>
+            <th>Severity</th>
         </tr>
         {% for col in data %}
             <tr>
                 <td><a href="{{url_for('update_bug',bug_id=col[0])}}">{{col[0]}}</a></td>
-                <td>{{ col[1] }} </td>
+                <td>{{ col[20] }} </td>
                 <td>{{ col[2]}}</td>
             </tr>
     {% endfor %}
