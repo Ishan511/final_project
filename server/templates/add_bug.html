@@ -92,17 +92,27 @@
             </select>
         </div>
         <div class="form-row" style="margin-top:20px;">
+            <label style="vertical-align:top" for=suggested_fix>Suggested Fix</label>
+            &nbsp;
+            <textarea name="suggested_fix" id="suggested_fix" cols="90" rows="3"></textarea>
+        </div>
+        <br\>
+        <div class="form-row" style="margin-top:20px;">
             <label style="vertical-align:top" for=comments>Comments</label>
             &nbsp;
             <textarea name="comments" id="comments" cols="90" rows="3"></textarea>
         </div>
-
+        <br\>
         <div class="form-row">
             <label id="status">Status</label>
             <select id ="status" name="status">
             <option style="display:none;"></option>
             {% for option in status %}
-            <option value="{{option}}">{{option}}</option>
+            {% if loop.first %}
+            <option value="{{ option }}" selected>{{ option }}</option>
+            {% else %}
+            <option value="{{ option }}">{{ option }}</option>
+            {% endif %}
             {% endfor %}
             </select>
             &nbsp;
@@ -125,13 +135,8 @@
             {% endfor %}
             </select>
             &nbsp;
-            <label id="resolution_version">Resolution Version</label>
-            <select id ="resolution_version" name="resolution_version">
-            <option style="display:none;"></option>
-            {% for option in resolution %}
-            <option value="{{option}}">{{option}}</option>
-            {% endfor %}
-            </select>
+            <label id="resolution_version" for="resolution_version">Resolution Version</label>
+            <input type="text" id="resolution_version" name="resolution_version">
         </div>
         <br/>
         <div class="form-row">

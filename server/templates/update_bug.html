@@ -58,13 +58,34 @@
         </div>
         <hr/>
         <div class="form-row">
-            <label id="areas">Functional Area</label>
+            <!-- <label id="areas">Functional Area</label>
             <select id ="areas" name="areas">
                 <option style="display:none;"></option>
-                {% for area in areas %}
-                <option value="{{area.area}}" {% if area.area == data.areas %}selected{% endif %}>{{ data.areas }}</option>
+                {% for a in areas %}
+                <option value="{{a.area}}" {% if a.area == data.areas %}selected{% endif %}>{{ a.area }}</option>
                 {% endfor %}
-            </select>
+            </select> -->
+            <label id="areas-label">Functional Area</label>
+<select id="areas" name="areas">
+    <option style="display:none;"></option>
+    {% for a in areas %}
+    <option value="{{a.area}}" {% if a.area == data.areas %}selected{% endif %}>{{ a.area }}</option>
+    {% endfor %}
+</select>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const selectElement = document.getElementById('areas');
+    let seenOptions = new Set();
+    Array.from(selectElement.options).forEach(option => {
+      if (seenOptions.has(option.value)) {
+        option.remove();
+      } else {
+        seenOptions.add(option.value);
+      }
+    });
+  });
+</script>
             &nbsp;
             <!-- UPDATED ASSIGNED-TO -->
             <label id="assigned_to">Assigned To</label>
@@ -87,6 +108,17 @@
         
         <br/>
 
+        <div class="form-row" style="margin-top:20px;">
+            <label style="vertical-align:top" for=suggested_fix>Suggested Fix</label>
+            &nbsp;
+            {% if data[0][21] %}
+                <textarea name="suggested_fix" id="suggested_fix" cols="90" rows="3">{{ data.suggested_fix }}</textarea>
+            {% else %}
+            <textarea name="suggested_fix" id="suggested_fix" cols="90" rows="3">{{ data.suggested_fix }}</textarea>
+            {% endif %}
+        </div>
+        
+        <br/>
          <!-- UPDATED STATUS -->
          <div class="form-row">
             <label id="status">Status</label>
@@ -168,7 +200,7 @@
             </select>
 
             &nbsp;
-
+            <br\>
             <label for="tested_date">Tested Date</label>
             <input type="date" id="tested_date" name="tested_date" value="{{data.tested_date}}">
             &nbsp;
@@ -185,12 +217,9 @@
             {% endfor %}
             </select>
             &nbsp;
-            <label id="resolution_version">Resolution Version</label>
-            <select id ="resolution_version" name="resolution_version">
-            <option style="display:none;"></option>
-            {% for option in resolution %}
-            <option value="{{option}}" {% if option == data.resolution_version %}selected{% endif %}>{{option}}</option>
-            {% endfor %}
+            &nbsp;
+            <label for="resolution_version">Resolution Version</label>
+            <input type="text" id="resolution_version" name="resolution_version" value="{{ data.resolution_version }}">
         </div>
         <br/>
         <br/>
